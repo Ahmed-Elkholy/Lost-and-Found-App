@@ -18,6 +18,7 @@ namespace LostAndFound.Models
         public Post()
         {
             this.Replies = new HashSet<Reply>();
+            this.Reports = new HashSet<Report>();
         }
     
         public int PID { get; set; }
@@ -25,9 +26,15 @@ namespace LostAndFound.Models
         public System.DateTime PDate { get; set; }
         public bool LF { get; set; }
         public bool Closed { get; set; }
+        public string Descr { get; set; }
+        public int CID { get; set; }
+        public byte[] Photo { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reply> Replies { get; set; }
+        public virtual Category Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Report> Reports { get; set; }
     }
 }
