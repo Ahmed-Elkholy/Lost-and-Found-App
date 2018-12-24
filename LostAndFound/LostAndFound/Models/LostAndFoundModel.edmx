@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LostAndFoundModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LostAndFoundModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CID" />
@@ -21,6 +21,9 @@
           <Property Name="PDate" Type="datetime" Nullable="false" />
           <Property Name="LF" Type="bit" Nullable="false" />
           <Property Name="Closed" Type="bit" Nullable="false" />
+          <Property Name="Descr" Type="nvarchar" MaxLength="180" Nullable="false" />
+          <Property Name="CID" Type="int" Nullable="false" />
+          <Property Name="Photo" Type="binary" MaxLength="50" />
         </EntityType>
         <EntityType Name="Reply">
           <Key>
@@ -51,6 +54,18 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Type" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Post_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="CID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Post_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Post" Type="Self.Post" Multiplicity="*" />
@@ -75,12 +90,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Report_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="LostAndFoundModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reply" EntityType="Self.Reply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Post_Category" Association="Self.FK_Post_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
           <AssociationSet Name="FK_Post_User" Association="Self.FK_Post_User">
             <End Role="User" EntitySet="User" />
             <End Role="Post" EntitySet="Post" />
@@ -89,9 +120,12 @@
             <End Role="Post" EntitySet="Post" />
             <End Role="Reply" EntitySet="Reply" />
           </AssociationSet>
+          <AssociationSet Name="FK_Report_Post" Association="Self.FK_Report_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LostAndFoundModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -101,6 +135,7 @@
           </Key>
           <Property Name="CID" Type="Int32" Nullable="false" />
           <Property Name="CName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Posts" Relationship="LostAndFoundModel.FK_Post_Category" FromRole="Category" ToRole="Post" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -113,6 +148,11 @@
           <Property Name="Closed" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Post_User" FromRole="Post" ToRole="User" />
           <NavigationProperty Name="Replies" Relationship="Self.FK_Reply_Post" FromRole="Post" ToRole="Reply" />
+          <Property Name="Descr" Type="String" Nullable="false" MaxLength="180" FixedLength="false" Unicode="true" />
+          <Property Name="CID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="LostAndFoundModel.FK_Post_Category" FromRole="Post" ToRole="Category" />
+          <NavigationProperty Name="Reports" Relationship="LostAndFoundModel.FK_Report_Post" FromRole="Post" ToRole="Report" />
+          <Property Name="Photo" Type="Binary" MaxLength="50" FixedLength="true" />
         </EntityType>
         <EntityType Name="Reply">
           <Key>
@@ -130,6 +170,7 @@
           </Key>
           <Property Name="ReportID" Type="Int32" Nullable="false" />
           <Property Name="PID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Post" Relationship="LostAndFoundModel.FK_Report_Post" FromRole="Report" ToRole="Post" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -183,7 +224,39 @@
             <End Role="Post" EntitySet="Posts" />
             <End Role="Reply" EntitySet="Replies" />
           </AssociationSet>
+          <AssociationSet Name="FK_Post_Category" Association="LostAndFoundModel.FK_Post_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Post" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_Post" Association="LostAndFoundModel.FK_Report_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Report" EntitySet="Reports" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Post_Category">
+          <End Type="LostAndFoundModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="LostAndFoundModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CID" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="CID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_Post">
+          <End Type="LostAndFoundModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="LostAndFoundModel.Report" Role="Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="PID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -201,6 +274,9 @@
           <EntitySetMapping Name="Posts">
             <EntityTypeMapping TypeName="LostAndFoundModel.Post">
               <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="CID" ColumnName="CID" />
+                <ScalarProperty Name="Descr" ColumnName="Descr" />
                 <ScalarProperty Name="PID" ColumnName="PID" />
                 <ScalarProperty Name="UID" ColumnName="UID" />
                 <ScalarProperty Name="PDate" ColumnName="PDate" />

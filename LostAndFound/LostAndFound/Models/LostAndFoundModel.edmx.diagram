@@ -12,6 +12,8 @@
         <EntityTypeShape EntityType="LostAndFoundModel.User" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="LostAndFoundModel.FK_Post_User" ManuallyRouted="false" />
         <AssociationConnector Association="LostAndFoundModel.FK_Reply_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="LostAndFoundModel.FK_Post_Category" />
+        <AssociationConnector Association="LostAndFoundModel.FK_Report_Post" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
