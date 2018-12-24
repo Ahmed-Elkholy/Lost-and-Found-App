@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LostAndFound", "LostAndFound\LostAndFound.csproj", "{F9E795B1-F438-4289-86DA-82285F505363}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LostAndFound", "LostAndFound\LostAndFound.csproj", "{130DA4DD-C0D8-4488-ACE7-6C8F2E4BC9A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F9E795B1-F438-4289-86DA-82285F505363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9E795B1-F438-4289-86DA-82285F505363}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9E795B1-F438-4289-86DA-82285F505363}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9E795B1-F438-4289-86DA-82285F505363}.Release|Any CPU.Build.0 = Release|Any CPU
+		{130DA4DD-C0D8-4488-ACE7-6C8F2E4BC9A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{130DA4DD-C0D8-4488-ACE7-6C8F2E4BC9A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{130DA4DD-C0D8-4488-ACE7-6C8F2E4BC9A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{130DA4DD-C0D8-4488-ACE7-6C8F2E4BC9A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {812E560B-A59C-4FAA-8E81-24664C2FB726}
+		SolutionGuid = {235F1E2C-401C-4046-8BAC-46ACC52AB27A}
 	EndGlobalSection
 EndGlobal
