@@ -293,6 +293,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="imgs\1.jpg" />
+    <Content Include="imgs\2.jpg" />
+    <Content Include="imgs\3.jpg" />
+    <Content Include="imgs\4.jpg" />
+    <Content Include="imgs\5.jpg" />
     <Content Include="Models\LFModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>LFModel.edmx</DependentUpon>

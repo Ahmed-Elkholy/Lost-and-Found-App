@@ -13,7 +13,7 @@ namespace LostAndFound.Controllers
 
     public class ReportController : Controller
     {
-        private LostAndFoundEntities1 db = new LostAndFoundEntities1();
+        private LFModelEntities db = new LFModelEntities();
         // GET: Report
         public ActionResult Index()
         {
