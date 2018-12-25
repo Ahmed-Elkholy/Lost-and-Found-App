@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a5dce3c0523541baaff7f7de1f55add3" Name="Diagram1">
-        <EntityTypeShape EntityType="LostAndFoundModel.Category" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="LostAndFoundModel.Post" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LostAndFoundModel.Reply" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="LostAndFoundModel.Report" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="LostAndFoundModel.User" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+      <Diagram DiagramId="10e3f7d590c647d99ccb492b7041bc7b" Name="Diagram1">
+        <EntityTypeShape EntityType="LostAndFoundModel.Category" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="LostAndFoundModel.Post" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LostAndFoundModel.Reply" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LostAndFoundModel.Report" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LostAndFoundModel.User" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
         <AssociationConnector Association="LostAndFoundModel.FK_Post_Category" ManuallyRouted="false" />
         <AssociationConnector Association="LostAndFoundModel.FK_Post_User" ManuallyRouted="false" />
         <AssociationConnector Association="LostAndFoundModel.FK_Reply_Post" ManuallyRouted="false" />
         <AssociationConnector Association="LostAndFoundModel.FK_Report_Post" ManuallyRouted="false" />
         <AssociationConnector Association="LostAndFoundModel.FK_Reply_User" ManuallyRouted="false" />
-        <AssociationConnector Association="LostAndFoundModel.FK_Report_User" />
+        <AssociationConnector Association="LostAndFoundModel.FK_Report_User" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

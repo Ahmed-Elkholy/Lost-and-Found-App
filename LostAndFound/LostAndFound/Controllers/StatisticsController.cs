@@ -12,7 +12,7 @@ namespace LostAndFound.Controllers
 {
     public class StatisticsController : Controller
     {
-        private LostAndFoundEntities db = new LostAndFoundEntities();
+        private LFModelEntities db = new LFModelEntities();
 
         // GET: Statistics
         public ActionResult Index()

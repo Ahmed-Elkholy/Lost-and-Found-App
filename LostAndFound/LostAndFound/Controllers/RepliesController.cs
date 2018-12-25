@@ -8,7 +8,7 @@ namespace LostAndFound.Controllers
 {
     public class RepliesController : Controller
     {
-        private LostAndFoundEntities1 db = new LostAndFoundEntities1();
+        private LFModelEntities db = new LFModelEntities();
 
         // GET: Replies
         public ActionResult Index(int pid)

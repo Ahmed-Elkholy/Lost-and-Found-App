@@ -11,7 +11,7 @@ namespace LostAndFound.Controllers
 {
     public class PostsController : Controller
     {
-        private LostAndFoundEntities1 db = new LostAndFoundEntities1();
+        private LFModelEntities db = new LFModelEntities();
 
         // GET: Posts
         public ActionResult Index(int id)
@@ -67,7 +67,7 @@ namespace LostAndFound.Controllers
                 {
                     db.SaveChanges();
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
                 }
                 //save photo here
