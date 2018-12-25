@@ -79,6 +79,48 @@ namespace LostAndFound.Controllers
             return View();
         }
 
+        // GET: Users/EditProfile
+        public ActionResult EditProfile(int id)
+        {
+            if (Session["id"] == null || id != (int)Session["id"])
+                return View("~/Views/Error404.cshtml");
+
+            var user = db.Users.Where(u => u.ID == id).First();
+            RegisterModel rModel = new RegisterModel
+            {
+                FName = user.FName,
+                LName = user.LName,
+                Email = user.Email,
+                Mobile = user.Mobile,
+                Photo = user.Photo
+            };
+            return View(rModel);
+        }
+
+        public ActionResult UpdateUser([Bind(Exclude = "Photo")] User user, HttpPostedFileBase Photo)
+        {
+            if (ModelState.IsValid)
+            {
+                var user_retrieved = db.Users.Where(u => u.Email == user.Email).First();
+                
+                if (Photo != null)
+                {
+                    byte[] buf = new byte[Photo.ContentLength];
+                    Photo.InputStream.Read(buf, 0, buf.Length);
+                }
+                MD5 md5Hash = MD5.Create();
+                user_retrieved.Password = GetMd5Hash(md5Hash, user.Password);
+                user_retrieved.FName = user.FName;
+                user_retrieved.LName = user.LName;
+                user_retrieved.Email = user.Email;
+                user_retrieved.Mobile = user.Mobile;
+                user_retrieved.Photo = user.Photo;
+                db.SaveChanges();
+                return RedirectToAction("Index");   
+            }
+            return View(user);
+        }
+
         // GET: Users/ResetToken
         public ActionResult ResetToken()
         {
@@ -113,8 +155,11 @@ namespace LostAndFound.Controllers
                 var users_retrieved = db.Users.Where(u => u.Email == user.Email).ToList();
                 if (users_retrieved.Count == 0)
                 {
-                    byte[] buf = new byte[Photo.ContentLength];
-                    Photo.InputStream.Read(buf, 0, buf.Length);
+                    if (Photo != null)
+                    {
+                        byte[] buf = new byte[Photo.ContentLength];
+                        Photo.InputStream.Read(buf, 0, buf.Length);
+                    }
                     MD5 md5Hash = MD5.Create();
                     user.Password = GetMd5Hash(md5Hash, user.Password);
                     db.Users.Add(user);

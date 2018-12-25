@@ -190,6 +190,7 @@
       <DependentUpon>LFModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PostViewModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\Reply.cs">
       <DependentUpon>LFModel.tt</DependentUpon>
     </Compile>
@@ -387,6 +388,10 @@
     <Content Include="Views\UsersList\Details.cshtml" />
     <Content Include="Views\UsersList\Edit.cshtml" />
     <Content Include="Views\UsersList\Index.cshtml" />
+    <Content Include="Views\Users\Reset.cshtml" />
+    <Content Include="Views\Users\ResetToken.cshtml" />
+    <Content Include="Views\Users\EditProfile.cshtml" />
+    <Content Include="Views\Error404.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
