@@ -6,6 +6,7 @@ using LostAndFound.Models;
 using System.Security.Cryptography;
 using System.Text;
 using System.Net.Mail;
+using System.Web;
 
 namespace LostAndFound.Controllers
 {
@@ -105,14 +106,16 @@ namespace LostAndFound.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register([Bind(Include = "ID,FName,LName,Email,Mobile,Photo,Password,Type")] User user)
+        public ActionResult Register([Bind(Exclude = "Photo")] User user, HttpPostedFileBase Photo)
         {
             if (ModelState.IsValid)
             {
                 var users_retrieved = db.Users.Where(u => u.Email == user.Email).ToList();
                 if (users_retrieved.Count == 0)
                 {
+                    byte[] buf = new byte[Photo.ContentLength];
+                    Photo.InputStream.Read(buf, 0, buf.Length);
+                    user.Photo = buf;
                     MD5 md5Hash = MD5.Create();
                     user.Password = GetMd5Hash(md5Hash, user.Password);
                     db.Users.Add(user);
