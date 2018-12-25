@@ -17,8 +17,8 @@ namespace LostAndFound.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            var posts = db.Posts.Include(p => p.User).Include(p => p.Category);
-            return View(posts.ToList());
+            //var posts = db.Posts.Include(p => p.User);
+            return View();
         }
 
         // GET: Posts/Details/5
@@ -39,8 +39,7 @@ namespace LostAndFound.Controllers
         // GET: Posts/Create
         public ActionResult Create()
         {
-            ViewBag.UID = new SelectList(db.Users, "ID", "FName");
-            ViewBag.CID = new SelectList(db.Categories, "CID", "CName");
+            //ViewBag.UID = new SelectList(db.Users, "ID", "FName");
             return View();
         }
 
@@ -48,18 +47,18 @@ namespace LostAndFound.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PID,UID,PDate,LF,Closed,Descr,CID,Photo")] Post post)
+        public ActionResult Create([Bind(Exclude = "Photo")]Post post, HttpPostedFileBase Photo)
         {
             if (ModelState.IsValid)
             {
-                db.Posts.Add(post);
-                db.SaveChanges();
+                byte[] buf = new byte[Photo.ContentLength];
+                Photo.InputStream.Read(buf, 0, buf.Length);
+                post.Photo = buf;
+                //save photo here
                 return RedirectToAction("Index");
             }
 
             ViewBag.UID = new SelectList(db.Users, "ID", "FName", post.UID);
-            ViewBag.CID = new SelectList(db.Categories, "CID", "CName", post.CID);
             return View(post);
         }
 
@@ -76,7 +75,6 @@ namespace LostAndFound.Controllers
                 return HttpNotFound();
             }
             ViewBag.UID = new SelectList(db.Users, "ID", "FName", post.UID);
-            ViewBag.CID = new SelectList(db.Categories, "CID", "CName", post.CID);
             return View(post);
         }
 
@@ -85,7 +83,7 @@ namespace LostAndFound.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PID,UID,PDate,LF,Closed,Descr,CID,Photo")] Post post)
+        public ActionResult Edit([Bind(Include = "PID,UID,PDate,LF,Closed")] Post post)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +92,6 @@ namespace LostAndFound.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.UID = new SelectList(db.Users, "ID", "FName", post.UID);
-            ViewBag.CID = new SelectList(db.Categories, "CID", "CName", post.CID);
             return View(post);
         }
 
