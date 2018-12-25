@@ -3,9 +3,6 @@
     ViewBag.Title = "Home Page";
 }
 
-
-@using (Html.BeginForm())
-{
     @Html.AntiForgeryToken()
 
     @using (Html.BeginForm("Search", "Home", FormMethod.Get))
@@ -35,7 +32,7 @@
                     Category
                 </th>
                 <th>
-                    Date
+                    @Html.ActionLink("Home", "Index", new { sortOrder = "Date" })
                 </th>
                 <th>
                     Lost/Found
@@ -68,4 +65,4 @@
 
 
 
-    }
+    

@@ -1,0 +1,17 @@
+﻿@model LostAndFound.Models.StatisticsModel
+
+@{
+    ViewBag.Title = "Index";
+}
+<table class="table">
+    <tr>
+        <th>Number Of Missing Items</th>
+        <td>@Model.CountMissing</td>
+    </tr>
+    <tr>
+        <th>Number Of Found Items</th>
+        <td>@Model.CountFound</td>
+    </tr>
+
+
+</table>

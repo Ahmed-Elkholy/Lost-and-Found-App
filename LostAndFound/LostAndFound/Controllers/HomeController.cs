@@ -13,7 +13,7 @@ namespace LostAndFound.Controllers
     public class HomeController : Controller
     {
         private LostAndFoundEntities db = new LostAndFoundEntities();
-
+        /*
         public ActionResult Index()
         {
             var posts = db.Posts;
@@ -23,8 +23,21 @@ namespace LostAndFound.Controllers
             //dcf.Add(p);
 
             return View(dcf);
-        }
+        }*/
 
+        public ActionResult Index(string sortOrder)
+        {
+            var posts = from s in db.Posts
+                           select s;
+            
+            if (sortOrder !=null && sortOrder.Equals("Date"))
+            {
+                posts = posts.OrderByDescending(s => s.PDate);
+            }
+            List<Post> dcf = posts.ToList();
+
+            return View(dcf);
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -46,5 +59,7 @@ namespace LostAndFound.Controllers
             return View(dcf);
 
         }
+
+
     }
 }
