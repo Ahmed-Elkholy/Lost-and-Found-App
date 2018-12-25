@@ -1,0 +1,70 @@
+﻿@model IEnumerable<LostAndFound.Models.Post>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control"name="query" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">Search</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+ }
+    <h2>2 Results</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                Post
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Lost/Found
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LF)
+                </td>
+                <td>
+                    @Html.ActionLink("View", "View", new { id = item.PID })
+
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+
+

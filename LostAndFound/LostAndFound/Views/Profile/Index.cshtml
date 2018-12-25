@@ -1,0 +1,30 @@
+﻿@model LostAndFound.Models.User
+
+
+<h2>@Model.FName 's Profile</h2>
+
+<table class="table">
+    <tr>
+        <th>Email</th>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <th>First Name</th>
+        <td>@Model.FName</td>
+    </tr>
+    <tr>
+        <th>Last Name</th>
+        <td>@Model.LName</td>
+    </tr>
+    <tr>
+        <th>Mobile</th>
+        <td>@Model.Mobile</td>
+    </tr>
+
+</table>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

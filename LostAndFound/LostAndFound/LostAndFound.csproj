@@ -159,41 +159,44 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RepliesController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
-      <DependentUpon>LFModel.tt</DependentUpon>
+      <DependentUpon>LostAndFoundModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LFModel.Context.cs">
+    <Compile Include="Models\LostAndFoundModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LFModel.Context.tt</DependentUpon>
+      <DependentUpon>LostAndFoundModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LFModel.cs">
+    <Compile Include="Models\LostAndFoundModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LFModel.tt</DependentUpon>
+      <DependentUpon>LostAndFoundModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LFModel.Designer.cs">
+    <Compile Include="Models\LostAndFoundModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LFModel.edmx</DependentUpon>
+      <DependentUpon>LostAndFoundModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Post.cs">
-      <DependentUpon>LFModel.tt</DependentUpon>
+      <DependentUpon>LostAndFoundModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\Reply.cs">
-      <DependentUpon>LFModel.tt</DependentUpon>
+      <DependentUpon>LostAndFoundModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Report.cs">
-      <DependentUpon>LFModel.tt</DependentUpon>
+      <DependentUpon>LostAndFoundModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StatisticsModel.cs" />
     <Compile Include="Models\User.cs">
-      <DependentUpon>LFModel.tt</DependentUpon>
+      <DependentUpon>LostAndFoundModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -287,20 +290,31 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\LFModel.Context.tt">
+    <Content Include="Models\LostAndFoundModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LFModel.edmx</DependentUpon>
-      <LastGenOutput>LFModel.Context.cs</LastGenOutput>
+      <LastGenOutput>LostAndFoundModel.Context.cs</LastGenOutput>
+      <DependentUpon>LostAndFoundModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\LFModel.tt">
+    <Content Include="Models\LostAndFoundModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LFModel.edmx</DependentUpon>
-      <LastGenOutput>LFModel.cs</LastGenOutput>
+      <DependentUpon>LostAndFoundModel.edmx</DependentUpon>
+      <LastGenOutput>LostAndFoundModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\LostAndFoundModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LostAndFoundModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="Models\LostAndFoundModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LostAndFoundModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\LostAndFoundModel.edmx.diagram">
+      <DependentUpon>LostAndFoundModel.edmx</DependentUpon>
     </Content>
     <Content Include="bin\ApplicationInsights.config" />
     <Content Include="bin\LostAndFound.dll.config" />
@@ -313,13 +327,6 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
-    <EntityDeploy Include="Models\LFModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LFModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\LFModel.edmx.diagram">
-      <DependentUpon>LFModel.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -354,13 +361,24 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Users\Register.cshtml" />
-    <Content Include="Views\Users\Reset.cshtml" />
-    <Content Include="Views\Users\ResetToken.cshtml" />
+    <Content Include="Views\Replies\Create.cshtml" />
+    <Content Include="Views\Replies\Delete.cshtml" />
+    <Content Include="Views\Replies\Details.cshtml" />
+    <Content Include="Views\Replies\Edit.cshtml" />
     <Content Include="Views\Replies\Index.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Shared\_Layout - Copy.cshtml" />
+    <Content Include="Views\Shared\NavBarLoggedIn.cshtml" />
+    <Content Include="Views\Shared\NavBarNotLogged.cshtml" />
+    <Content Include="Views\Statistics\Create.cshtml" />
+    <Content Include="Views\Statistics\Delete.cshtml" />
+    <Content Include="Views\Statistics\Details.cshtml" />
+    <Content Include="Views\Statistics\Edit.cshtml" />
+    <Content Include="Views\Statistics\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="imgs\" />
     <Folder Include="Views\Nav\" />
   </ItemGroup>
   <ItemGroup>
