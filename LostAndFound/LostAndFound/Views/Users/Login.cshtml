@@ -31,8 +31,11 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-2 col-md-2">
                 <input type="submit" value="Login" class="btn btn-default" />
+            </div>
+            <div class="col-md-2">
+                @Html.ActionLink("Forgot password", "Reset", "Users", null, new { @class = "page-scroll" })
             </div>
         </div>
     </div>
