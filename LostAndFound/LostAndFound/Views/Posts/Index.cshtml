@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LostAndFound.Models.Post>
+﻿﻿@model IEnumerable<LostAndFound.Models.Post>
 
 @{
     var Post = Model.First();
@@ -38,7 +38,7 @@
         @Html.DisplayFor(model => Post.PDate)
     </div>
     <div class="col-md-10">
-       @Html.DisplayFor(model => reply.Descr)
+        @Html.DisplayFor(model => reply.Descr)
     </div>
 }
 

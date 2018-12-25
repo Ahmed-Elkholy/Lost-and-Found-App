@@ -68,7 +68,8 @@ namespace LostAndFound.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            var users = db.Users.ToList();
+            return View(users);
         }
 
         // GET: Users/Register
