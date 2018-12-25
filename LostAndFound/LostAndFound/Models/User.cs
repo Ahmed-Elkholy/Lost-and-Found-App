@@ -9,7 +9,6 @@
 
 namespace LostAndFound.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
@@ -20,6 +19,8 @@ namespace LostAndFound.Models
         public User()
         {
             this.Posts = new HashSet<Post>();
+            this.Replies = new HashSet<Reply>();
+            this.Reports = new HashSet<Report>();
         }
 
         public int ID { get; set; }
@@ -38,7 +39,7 @@ namespace LostAndFound.Models
         [RegularExpression("^01[0-9]{9}$", ErrorMessage = "Invalid phone number")]
         public string Mobile { get; set; }
         [DisplayName("Profile picture")]
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
         [Required]
         [DataType(DataType.Password)]
         [DisplayName("Password")]
@@ -48,5 +49,9 @@ namespace LostAndFound.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Posts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reply> Replies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Report> Reports { get; set; }
     }
 }

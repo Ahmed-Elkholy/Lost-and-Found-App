@@ -21,5 +21,6 @@ namespace LostAndFound.Models
         public string Descr { get; set; }
     
         public virtual Post Post { get; set; }
+        public virtual User User { get; set; }
     }
 }

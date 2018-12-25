@@ -16,7 +16,9 @@ namespace LostAndFound.Models
     {
         public int ReportID { get; set; }
         public int PID { get; set; }
+        public int UID { get; set; }
     
         public virtual Post Post { get; set; }
+        public virtual User User { get; set; }
     }
 }

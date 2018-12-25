@@ -1,0 +1,17 @@
+﻿﻿@model IEnumerable<LostAndFound.Models.Reply>
+
+@foreach (var Reply in Model)
+{
+    <div class="row">
+        <div class="col-md-2">
+            @Html.DisplayFor(model => Reply.User.FName) @Html.DisplayFor(model => Reply.User.LName)
+            <br />
+            @Html.DisplayFor(model => Reply.RDate)
+        </div>
+        <div class="col-md-10">
+            @Html.DisplayFor(model => Reply.Descr)
+        </div>
+    </div>
+    <br />
+    <br />
+}
