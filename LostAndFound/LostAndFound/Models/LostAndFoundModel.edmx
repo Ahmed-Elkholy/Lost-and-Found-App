@@ -23,7 +23,7 @@
           <Property Name="Closed" Type="bit" Nullable="false" />
           <Property Name="Descr" Type="nvarchar" MaxLength="180" Nullable="false" />
           <Property Name="CID" Type="int" Nullable="false" />
-          <Property Name="Photo" Type="binary" MaxLength="50" />
+          <Property Name="Photo" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Reply">
           <Key>
@@ -33,6 +33,7 @@
           <Property Name="PID" Type="int" Nullable="false" />
           <Property Name="UID" Type="int" Nullable="false" />
           <Property Name="RDate" Type="datetime" Nullable="false" />
+          <Property Name="Descr" Type="nvarchar" MaxLength="180" Nullable="false" />
         </EntityType>
         <EntityType Name="Report">
           <Key>
@@ -50,7 +51,7 @@
           <Property Name="LName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Mobile" Type="nvarchar" MaxLength="11" />
-          <Property Name="Photo" Type="binary" MaxLength="50" />
+          <Property Name="Photo" Type="varbinary(max)" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Type" Type="bit" Nullable="false" />
         </EntityType>
@@ -152,7 +153,7 @@
           <Property Name="CID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="LostAndFoundModel.FK_Post_Category" FromRole="Post" ToRole="Category" />
           <NavigationProperty Name="Reports" Relationship="LostAndFoundModel.FK_Report_Post" FromRole="Post" ToRole="Report" />
-          <Property Name="Photo" Type="Binary" MaxLength="50" FixedLength="true" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Reply">
           <Key>
@@ -163,6 +164,7 @@
           <Property Name="UID" Type="Int32" Nullable="false" />
           <Property Name="RDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Post" Relationship="Self.FK_Reply_Post" FromRole="Reply" ToRole="Post" />
+          <Property Name="Descr" Type="String" Nullable="false" MaxLength="180" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Report">
           <Key>
@@ -181,7 +183,7 @@
           <Property Name="LName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Mobile" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
-          <Property Name="Photo" Type="Binary" MaxLength="50" FixedLength="true" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Type" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Posts" Relationship="Self.FK_Post_User" FromRole="User" ToRole="Post" />
@@ -288,6 +290,7 @@
           <EntitySetMapping Name="Replies">
             <EntityTypeMapping TypeName="LostAndFoundModel.Reply">
               <MappingFragment StoreEntitySet="Reply">
+                <ScalarProperty Name="Descr" ColumnName="Descr" />
                 <ScalarProperty Name="RID" ColumnName="RID" />
                 <ScalarProperty Name="PID" ColumnName="PID" />
                 <ScalarProperty Name="UID" ColumnName="UID" />

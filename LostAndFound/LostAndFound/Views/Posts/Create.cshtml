@@ -1,4 +1,4 @@
-﻿@model LostAndFound.Models.Post
+﻿@model LostAndFound.Models.PostViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -7,39 +7,47 @@
 <h2>Create</h2>
 
 
-@using(Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Post</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Descr, "Description", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(m => m.Descr, new { @class = "form-control", @rows = "8" })
-                @Html.ValidationMessageFor(model => model.Descr, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    <h4>Post</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Descr, "Description", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Descr, new { @class = "form-control", @rows = "8" })
+            @Html.ValidationMessageFor(model => model.Descr, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Type</label>
+        <div class="col-md-10">
+            <label class="radio-inline">@Html.RadioButtonFor(model => model.LF, true, false) Found</label>
+            <label class="radio-inline">@Html.RadioButtonFor(model => model.LF, false, false) Lost</label>
+           @Html.ValidationMessageFor(model => model.LF, "", new { @class = "text-danger" })
+</div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">Category</label>
+        <div class="col-md-10">
+            <label class="radio-inline"><input type="radio" name="category" checked>Option 1</label>
+            <label class="radio-inline"><input type="radio" name="category">Option 2</label>
+            <label class="radio-inline"><input type="radio" name="category">Option 3</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <label  class="control-label col-md-2">Upload Photo </label>
+            <input type="file" id="Photo" name="Photo" class="form-control-file" />
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-2"></label>
-            <div class="col-md-10">
-                @Html.RadioButtonFor(model => model.LF, true, false)@Html.Label("Lost")
-                @Html.RadioButtonFor(model => model.LF, false, false)@Html.Label("Found")
-                @Html.ValidationMessageFor(model => model.LF, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-
-        <div class="form-group">
-            <label class="control-label col-md-2"></label>
-            <div class="col-md-10">
-                <input type="file" id="Photo" name="Photo" class="input-files" />
-            </div>
-        </div>
+    </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

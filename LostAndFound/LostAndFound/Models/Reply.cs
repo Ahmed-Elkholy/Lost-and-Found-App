@@ -18,6 +18,7 @@ namespace LostAndFound.Models
         public int PID { get; set; }
         public int UID { get; set; }
         public System.DateTime RDate { get; set; }
+        public string Descr { get; set; }
     
         public virtual Post Post { get; set; }
     }

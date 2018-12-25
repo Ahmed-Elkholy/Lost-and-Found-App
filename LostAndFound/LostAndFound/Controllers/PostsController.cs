@@ -17,8 +17,8 @@ namespace LostAndFound.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            //var posts = db.Posts.Include(p => p.User);
-            return View();
+            var posts = db.Posts.Include(p => p.User);
+            return View(posts.ToList());
         }
 
         // GET: Posts/Details/5
@@ -47,18 +47,37 @@ namespace LostAndFound.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Exclude = "Photo")]Post post, HttpPostedFileBase Photo)
+        public ActionResult Create([Bind(Exclude = "Photo")]PostViewModel post, HttpPostedFileBase Photo)
         {
             if (ModelState.IsValid)
             {
                 byte[] buf = new byte[Photo.ContentLength];
                 Photo.InputStream.Read(buf, 0, buf.Length);
                 post.Photo = buf;
+                Post NewPost = new Post
+                {
+                    Descr = post.Descr,
+                    PDate = DateTime.Now,
+                    LF = post.LF,
+                    Photo = post.Photo,
+                    UID = 2,
+                    CID = 1
+                };
+                db.Posts.Add(NewPost);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch(Exception e)
+                {
+                    int x = 5;
+                    x++;
+                }
                 //save photo here
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UID = new SelectList(db.Users, "ID", "FName", post.UID);
+            //ViewBag.UID = new SelectList(db.Users, "ID", "FName", post.UID);
             return View(post);
         }
 

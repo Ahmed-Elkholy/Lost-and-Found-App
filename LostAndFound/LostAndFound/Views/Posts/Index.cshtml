@@ -9,19 +9,33 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Go!</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.PDate)
+            Post
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LF)
+           Category
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Closed)
+            Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.FName)
+            Lost/Found
         </th>
         <th></th>
     </tr>
@@ -29,21 +43,20 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Descr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.PDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LF)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Closed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.PID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.PID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.PID })
+            @Html.ActionLink("View", "View", new { id=item.PID }) |
+
         </td>
     </tr>
 }

@@ -1,16 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using LostAndFound.Models;
 
 namespace LostAndFound.Controllers
 {
     public class HomeController : Controller
     {
+        private LostAndFoundEntities db = new LostAndFoundEntities();
+
         public ActionResult Index()
         {
-            return View();
+            var posts = db.Posts;
+
+            return View(posts.ToList<Post>());
         }
 
         public ActionResult About()
