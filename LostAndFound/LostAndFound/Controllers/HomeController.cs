@@ -17,8 +17,12 @@ namespace LostAndFound.Controllers
         public ActionResult Index()
         {
             var posts = db.Posts;
+            List<Post> dcf = posts.ToList();
+            //Post p = new Post();
+            //p.Descr = "dfdf";
+            //dcf.Add(p);
 
-            return View(posts.ToList<Post>());
+            return View(dcf);
         }
 
         public ActionResult About()
@@ -33,6 +37,14 @@ namespace LostAndFound.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Search(string query)
+        {
+            var posts = db.Posts.Where(m=>m.Descr.Contains(query));
+            List<Post> dcf = posts.ToList();
+            return View(dcf);
+
         }
     }
 }
