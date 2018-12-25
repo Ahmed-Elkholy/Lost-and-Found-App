@@ -1,0 +1,50 @@
+﻿@model IEnumerable<LostAndFound.Models.ReportViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Reported Posts</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Post
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Lost/Found
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfReports)
+            </td>
+            <td>
+                @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)|
+                @Html.ActionLink("Delete", "Delete", "Report", new { id = item.PID }, null)
+            </td>
+        </tr>
+    }
+</table>
+
+
+
+

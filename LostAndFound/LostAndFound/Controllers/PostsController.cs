@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -12,7 +13,7 @@ namespace LostAndFound.Controllers
 {
     public class PostsController : Controller
     {
-        private LostAndFoundEntities db = new LostAndFoundEntities();
+        private LostAndFoundEntities1 db = new LostAndFoundEntities1();
 
         // GET: Posts
         public ActionResult Index()
@@ -39,7 +40,7 @@ namespace LostAndFound.Controllers
         // GET: Posts/Create
         public ActionResult Create()
         {
-            //ViewBag.UID = new SelectList(db.Users, "ID", "FName");
+            ViewBag.CategoryList = new SelectList(db.Categories, "CID", "CName");
             return View();
         }
 
@@ -47,21 +48,29 @@ namespace LostAndFound.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Exclude = "Photo")]PostViewModel post, HttpPostedFileBase Photo)
+        public ActionResult Create(PostViewModel post, HttpPostedFileBase Photo)
         {
             if (ModelState.IsValid)
             {
-                byte[] buf = new byte[Photo.ContentLength];
-                Photo.InputStream.Read(buf, 0, buf.Length);
-                post.Photo = buf;
+                
+                var fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
+
+                var uploadUrl = Server.MapPath("~/Images/Post");
+                var filePath = Path.Combine(uploadUrl, fileName);
+                while(System.IO.File.Exists(filePath))
+                {
+                    fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
+                    filePath = Path.Combine(uploadUrl, fileName);
+                }
+                Photo.SaveAs(filePath);
                 Post NewPost = new Post
                 {
                     Descr = post.Descr,
                     PDate = DateTime.Now,
                     LF = post.LF,
-                    Photo = post.Photo,
                     UID = 2,
-                    CID = 1
+                    CID = 1,
+                    Photo = filePath
                 };
                 db.Posts.Add(NewPost);
                 try

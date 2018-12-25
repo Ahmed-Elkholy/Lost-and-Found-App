@@ -12,7 +12,7 @@ namespace LostAndFound.Controllers
 {
     public class UsersController : Controller
     {
-        private LostAndFoundEntities db = new LostAndFoundEntities();
+        private LostAndFoundEntities1 db = new LostAndFoundEntities1();
 
         // SRC: https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.md5?redirectedfrom=MSDN&view=netframework-4.7.2
         static string GetMd5Hash(MD5 md5Hash, string input)
@@ -115,7 +115,6 @@ namespace LostAndFound.Controllers
                 {
                     byte[] buf = new byte[Photo.ContentLength];
                     Photo.InputStream.Read(buf, 0, buf.Length);
-                    user.Photo = buf;
                     MD5 md5Hash = MD5.Create();
                     user.Password = GetMd5Hash(md5Hash, user.Password);
                     db.Users.Add(user);

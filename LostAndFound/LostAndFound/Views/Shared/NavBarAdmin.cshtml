@@ -1,0 +1,30 @@
+﻿@model LostAndFound.Models.User
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Lost And Found", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("Post", "About", "Home")</li>
+                <li>@Html.ActionLink("Reports", "Index", "Report")</li>
+                <li>@Html.ActionLink("Users", "Index", "Report")</li>
+                <li>@Html.ActionLink("Approve Users", "Index", "Report")</li>
+
+                <li>@Html.ActionLink("Statistics", "Index", "Statistics")</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>@Html.ActionLink(Model.FName, "Index", "Home")</li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+

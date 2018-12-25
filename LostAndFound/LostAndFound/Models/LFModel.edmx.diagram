@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="330544f2c5534039a75ce03d67324110" Name="Diagram1">
+        <EntityTypeShape EntityType="LostAndFoundModel.Category" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LostAndFoundModel.Post" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LostAndFoundModel.Reply" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LostAndFoundModel.Report" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LostAndFoundModel.User" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <AssociationConnector Association="LostAndFoundModel.FK_Post_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="LostAndFoundModel.FK_Post_User" ManuallyRouted="false" />
+        <AssociationConnector Association="LostAndFoundModel.FK_Reply_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="LostAndFoundModel.FK_Report_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="LostAndFoundModel.FK_Reply_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

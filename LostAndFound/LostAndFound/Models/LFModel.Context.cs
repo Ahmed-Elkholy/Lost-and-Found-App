@@ -13,10 +13,10 @@ namespace LostAndFound.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class LostAndFoundEntities : DbContext
+    public partial class LostAndFoundEntities1 : DbContext
     {
-        public LostAndFoundEntities()
-            : base("name=LostAndFoundEntities")
+        public LostAndFoundEntities1()
+            : base("name=LostAndFoundEntities1")
         {
         }
     

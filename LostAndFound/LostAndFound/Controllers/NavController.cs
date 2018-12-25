@@ -12,7 +12,7 @@ namespace LostAndFound.Controllers
 {
     public class NavController : Controller
     {
-        private LostAndFoundEntities db = new LostAndFoundEntities();
+        private LostAndFoundEntities1 db = new LostAndFoundEntities1();
 
         // GET: Nav
         public ActionResult Index()

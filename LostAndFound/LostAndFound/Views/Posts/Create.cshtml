@@ -25,8 +25,8 @@
     <div class="form-group">
         <label class="control-label col-md-2">Type</label>
         <div class="col-md-10">
-            <label class="radio-inline">@Html.RadioButtonFor(model => model.LF, true, false) Found</label>
-            <label class="radio-inline">@Html.RadioButtonFor(model => model.LF, false, false) Lost</label>
+            <label class="radio-inline">@Html.RadioButtonFor(model => model.LF, true, false) I just found an item</label>
+            <label class="radio-inline">@Html.RadioButtonFor(model => model.LF, false, false) I lost an item</label>
            @Html.ValidationMessageFor(model => model.LF, "", new { @class = "text-danger" })
 </div>
     </div>
@@ -34,9 +34,9 @@
     <div class="form-group">
         <label class="control-label col-md-2">Category</label>
         <div class="col-md-10">
-            <label class="radio-inline"><input type="radio" name="category" checked>Option 1</label>
-            <label class="radio-inline"><input type="radio" name="category">Option 2</label>
-            <label class="radio-inline"><input type="radio" name="category">Option 3</label>
+            
+                @Html.DropDownListFor(model => model.CID, ViewBag.CategoryList as SelectList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CID, "", new { @class = "text-danger" })
         </div>
     </div>
 
