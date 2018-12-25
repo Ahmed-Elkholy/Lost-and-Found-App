@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using LostAndFound.Models;
 using System.Security.Cryptography;
 using System.Text;
+using System.Net.Mail;
 
 namespace LostAndFound.Controllers
 {
@@ -81,6 +77,29 @@ namespace LostAndFound.Controllers
             return View();
         }
 
+        // GET: Users/ResetToken
+        public ActionResult ResetToken()
+        {
+            return View();
+        }
+
+        // POST: Users/ResetToken
+        [HttpPost]
+        public ActionResult ResetToken(int token, string password)
+        {
+            MD5 md5Hash = MD5.Create();
+            string hashed = GetMd5Hash(md5Hash, password);
+            var email = Session["email"];
+            if (Session["token"].Equals(token) && password.Length >= 8 && password.Length <= 40)
+            {
+                var entry = db.Users.Where(u => u.Email == email).ToList().First();
+                entry.Password = hashed;
+                db.SaveChanges();
+            }
+            return View();
+        }
+
+
         // POST: Users/Register
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -115,6 +134,35 @@ namespace LostAndFound.Controllers
             return View();
         }
 
+        // GET: Users/Failed
+        public ActionResult Reset()
+        {
+            return View();
+        }
+
+        // POST: Users/Reset
+        [HttpPost]
+        public ActionResult Reset([Bind(Include = "Email")] User user)
+        {
+            var email = db.Users.Where(u => u.Email == user.Email).ToList().First().Email;
+            Random random = new Random();
+            var num = random.Next(0, 100000);
+            Session["token"] = num;
+            Session["email"] = email;
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+            smtpClient.Credentials = new System.Net.NetworkCredential("lostandfound.project.2018@gmail.com", "Consultation1234");
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            MailMessage mail = new MailMessage();
+            smtpClient.EnableSsl = true;
+            //Setting From , To and CC
+            mail.From = new MailAddress("lostandfound.project.2018@gmail.com");
+            mail.To.Add(email);
+            mail.Subject = "Password reset link";
+            mail.Body = "Your recovery pin is " + num;
+            smtpClient.Send(mail);
+            return View("~/Views/Users/ResetToken.cshtml");
+        }
+
         // POST: Users/Login
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -128,7 +176,11 @@ namespace LostAndFound.Controllers
                 MD5 md5Hash = MD5.Create();
                 var user_retrieved = db.Users.Where(u => u.Email == user.Email).ToList();
                 if (user_retrieved.Count == 1 && VerifyMd5Hash(md5Hash, user.Password, user_retrieved.First().Password))
+                {
+                    Session["id"] = user.ID;
+                    Session["email"] = user.Email;
                     return RedirectToAction("Index");
+                }
                 else
                     return RedirectToAction("Failed");
             }

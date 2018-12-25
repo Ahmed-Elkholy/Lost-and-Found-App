@@ -1,0 +1,48 @@
+﻿@model IEnumerable<LostAndFound.Models.Post>
+
+@{
+    var Post = Model.First();
+    ViewBag.Title = "Post";
+}
+
+<div class="container-fluid">
+    <div class="col-md-2">
+        <img class="img-rounded" src="@Html.DisplayFor(model => Post.User.Photo)" />
+    </div>
+    <div class="col-md-10">
+        @Html.DisplayFor(model => Post.User.FName) &nbsp; @Html.DisplayFor(model => Post.User.LName)
+        <br />
+        @Html.DisplayFor(model => Post.PDate)
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="col-md-10">
+        @Html.DisplayFor(model => Post.Descr)
+    </div>
+    <div class="col-md-2">
+        @if (Html.DisplayFor(model => Post.Photo) != null)
+        {
+            <img src="Post.Photo" class="img-thumbnail" />
+        }
+    </div>
+    <button type="button" class="btn btn-outline-danger">Report post</button>
+</div>
+
+@foreach (var reply in Post.Replies)
+{
+    <div class="col-md-2">
+        <img class="img-rounded" src="@Html.DisplayFor(model => Post.User.Photo)" />
+        @Html.DisplayFor(model => Post.User.FName) &nbsp; @Html.DisplayFor(model => Post.User.LName)
+        <br />
+        @Html.DisplayFor(model => Post.PDate)
+    </div>
+    <div class="col-md-10">
+       @Html.DisplayFor(model => reply.Descr)
+    </div>
+}
+
+<div>
+    <label for="replyTextarea">Reply</label>
+    <textarea class="form-control" id="replyTextarea" placeholder="Write your answer here ..."></textarea>
+</div>

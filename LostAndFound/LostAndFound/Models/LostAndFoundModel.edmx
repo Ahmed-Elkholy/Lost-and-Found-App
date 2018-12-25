@@ -33,6 +33,7 @@
           <Property Name="PID" Type="int" Nullable="false" />
           <Property Name="UID" Type="int" Nullable="false" />
           <Property Name="RDate" Type="datetime" Nullable="false" />
+          <Property Name="Descr" Type="nvarchar" MaxLength="180" Nullable="false" />
         </EntityType>
         <EntityType Name="Report">
           <Key>
@@ -163,6 +164,7 @@
           <Property Name="UID" Type="Int32" Nullable="false" />
           <Property Name="RDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Post" Relationship="Self.FK_Reply_Post" FromRole="Reply" ToRole="Post" />
+          <Property Name="Descr" Type="String" Nullable="false" MaxLength="180" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Report">
           <Key>
@@ -288,6 +290,7 @@
           <EntitySetMapping Name="Replies">
             <EntityTypeMapping TypeName="LostAndFoundModel.Reply">
               <MappingFragment StoreEntitySet="Reply">
+                <ScalarProperty Name="Descr" ColumnName="Descr" />
                 <ScalarProperty Name="RID" ColumnName="RID" />
                 <ScalarProperty Name="PID" ColumnName="PID" />
                 <ScalarProperty Name="UID" ColumnName="UID" />
