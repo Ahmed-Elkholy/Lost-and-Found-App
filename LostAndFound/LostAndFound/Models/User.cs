@@ -19,6 +19,7 @@ namespace LostAndFound.Models
         {
             this.Posts = new HashSet<Post>();
             this.Replies = new HashSet<Reply>();
+            this.Reports = new HashSet<Report>();
         }
     
         public int ID { get; set; }
@@ -26,7 +27,12 @@ namespace LostAndFound.Models
         public string LName { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
+        [DisplayName("Profile picture")]
         public string Photo { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        [DisplayName("Password")]
+        [MaxLength(40, ErrorMessage = "Password must be at most 40 characters long"), MinLength(8, ErrorMessage = "Password must be least 8 characters long")]
         public string Password { get; set; }
         public bool Type { get; set; }
     
@@ -34,5 +40,7 @@ namespace LostAndFound.Models
         public virtual ICollection<Post> Posts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reply> Replies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Report> Reports { get; set; }
     }
 }

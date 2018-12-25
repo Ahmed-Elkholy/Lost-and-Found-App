@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
@@ -13,12 +12,12 @@ namespace LostAndFound.Controllers
 {
     public class PostsController : Controller
     {
-        private LostAndFoundEntities1 db = new LostAndFoundEntities1();
+        private LFModelEntities db = new LFModelEntities();
 
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            var posts = db.Posts.Include(p => p.User);
+            var posts = db.Posts.Where(p => p.PID == id).Include(u => u.User);
             return View(posts.ToList());
         }
 
@@ -77,10 +76,8 @@ namespace LostAndFound.Controllers
                 {
                     db.SaveChanges();
                 }
-                catch(Exception e)
+                catch(Exception)
                 {
-                    int x = 5;
-                    x++;
                 }
                 //save photo here
                 return RedirectToAction("Index");
@@ -88,6 +85,35 @@ namespace LostAndFound.Controllers
 
             //ViewBag.UID = new SelectList(db.Users, "ID", "FName", post.UID);
             return View(post);
+        }
+
+        [HttpPost]
+        public void AddReply(int pid, string replyText)
+        {
+            Reply reply = new Reply
+            {
+                PID = pid,
+                UID = (int)Session["id"],
+                RDate = DateTime.Now,
+                Descr = replyText
+            };
+            db.Replies.Add(reply);
+            db.SaveChanges();
+        }
+
+        [HttpPost]
+        public void AddReport(int pid)
+        {
+            Report report = new Report
+            {
+                PID = pid,
+                UID = (int)Session["id"]
+            };
+            if (db.Reports.Count(x => x.UID == report.UID && x.PID == pid) == 0)
+            {
+                db.Reports.Add(report);
+                db.SaveChanges();
+            }
         }
 
         // GET: Posts/Edit/5

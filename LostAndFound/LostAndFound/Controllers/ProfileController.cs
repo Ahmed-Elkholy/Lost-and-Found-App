@@ -13,14 +13,14 @@ namespace LostAndFound.Controllers
     public class ProfileController : Controller
     {
         // GET: Profile
-        private LostAndFoundEntities1 db = new LostAndFoundEntities1();
+        private LFModelEntities db = new LFModelEntities();
 
         public ActionResult Index(int id)
         {
             id = 2;
             if (id == 0)
             {
-                int x = 5;
+                
                 //take session id or return failed
             }
 

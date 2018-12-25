@@ -12,7 +12,7 @@ namespace LostAndFound.Controllers
 {
     public class UsersController : Controller
     {
-        private LostAndFoundEntities1 db = new LostAndFoundEntities1();
+        private LFModelEntities db = new LFModelEntities();
 
         // SRC: https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.md5?redirectedfrom=MSDN&view=netframework-4.7.2
         static string GetMd5Hash(MD5 md5Hash, string input)
@@ -69,8 +69,8 @@ namespace LostAndFound.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            var users = db.Users.ToList();
-            return View(users);
+            //var users = db.Users.ToList();
+            return View();// users);
         }
 
         // GET: Users/Register
@@ -94,7 +94,7 @@ namespace LostAndFound.Controllers
             var email = Session["email"];
             if (Session["token"].Equals(token) && password.Length >= 8 && password.Length <= 40)
             {
-                var entry = db.Users.Where(u => u.Email == email).ToList().First();
+                var entry = db.Users.Where(u => u.Email == email.ToString()).ToList().First();
                 entry.Password = hashed;
                 db.SaveChanges();
             }
@@ -180,7 +180,7 @@ namespace LostAndFound.Controllers
                 var user_retrieved = db.Users.Where(u => u.Email == user.Email).ToList();
                 if (user_retrieved.Count == 1 && VerifyMd5Hash(md5Hash, user.Password, user_retrieved.First().Password))
                 {
-                    Session["id"] = user.ID;
+                    Session["id"] = user_retrieved.First().ID;
                     Session["email"] = user.Email;
                     return RedirectToAction("Index");
                 }

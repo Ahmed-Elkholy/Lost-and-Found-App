@@ -2,47 +2,98 @@
 
 @{
     var Post = Model.First();
-    ViewBag.Title = "Post";
+    var photo = "/imgs/" + Post.Photo;
+    var userPhoto = "/imgs/" + Post.User.Photo;
 }
 
 <div class="container-fluid">
-    <div class="col-md-2">
-        <img class="img-rounded" src="@Html.DisplayFor(model => Post.User.Photo)" />
-    </div>
-    <div class="col-md-10">
-        @Html.DisplayFor(model => Post.User.FName) &nbsp; @Html.DisplayFor(model => Post.User.LName)
-        <br />
-        @Html.DisplayFor(model => Post.PDate)
+    <div class="row">
+        <div class="col-md-1">
+            <img class="img-rounded" width='50' height="50" src="@Html.DisplayFor(model => userPhoto)" />
+        </div>
+        <div class="col-md-10">
+            <label align="left">@Post.User.FName @Post.User.LName</label>
+            <br />
+            @Html.DisplayFor(model => Post.PDate)
+        </div>
     </div>
 </div>
+
+<br />
+<br />
 
 <div class="container-fluid">
-    <div class="col-md-10">
-        @Html.DisplayFor(model => Post.Descr)
+    <div class="row">
+        <div class="col-md-6">
+            @Html.DisplayFor(model => Post.Descr)
+        </div>
+        <div class="col-md-6">
+            @if (Html.DisplayFor(model => photo) != null)
+            {
+                <img src="@photo" class="img-thumbnail" />
+            }
+
+            <div>
+                <button type="button" id="reportBtn" class="btn btn-outline-danger" action="ReportPost">Report post</button>
+            </div>
+        </div>
     </div>
-    <div class="col-md-2">
-        @if (Html.DisplayFor(model => Post.Photo) != null)
-        {
-            <img src="Post.Photo" class="img-thumbnail" />
-        }
-    </div>
-    <button type="button" class="btn btn-outline-danger">Report post</button>
 </div>
 
-@foreach (var reply in Post.Replies)
-{
-    <div class="col-md-2">
-        <img class="img-rounded" src="@Html.DisplayFor(model => Post.User.Photo)" />
-        @Html.DisplayFor(model => Post.User.FName) &nbsp; @Html.DisplayFor(model => Post.User.LName)
-        <br />
-        @Html.DisplayFor(model => Post.PDate)
-    </div>
-    <div class="col-md-10">
-        @Html.DisplayFor(model => reply.Descr)
-    </div>
-}
+<br />
+<br />
 
-<div>
-    <label for="replyTextarea">Reply</label>
-    <textarea class="form-control" id="replyTextarea" placeholder="Write your answer here ..."></textarea>
+<div id="repliesView">
+    @{
+        Html.RenderAction("Index", "Replies", new { pid = Post.PID });
+    }
 </div>
+
+<div class="row">
+    <div>
+        <input type="hidden" id="pid" value=@Post.PID />
+    </div>
+    <div class="col-md-8">
+        <label for="replyTextarea">Add comment</label>
+        <textarea class="form-control" id="replyText" name="replyText" placeholder="Write your answer here ..."></textarea>
+    </div>
+    <div class="col-md-2">
+        <input type="submit" id="replyBtn" value="Reply" class="btn btn-default" />
+    </div>
+</div>
+
+
+<script>
+    $("#replyBtn").click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "/Posts/AddReply",
+            data: { pid: $('#pid').val(), replyText: $('#replyText').val() },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                $("#repliesView").load('@Url.Action("Index", "Replies")' + '?pid=@Post.PID');
+                $("#replyText").val('');
+            },
+            error: function (reponse) {
+                alert("An error has occured :(\nPlease try again later!!");
+            }
+        });
+    });
+
+    $("#reportBtn").click(function (e) {
+        e.preventDefault();
+         $.ajax({
+            url: "/Posts/AddReport",
+            data: { pid: $('#pid').val() },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                alert("You reported the post and it is now under the admin's review\nThank you!!");
+            },
+            error: function (reponse) {
+                alert("An error has occured :(\nPlease try again later!!");
+            }
+        });
+    });
+</script>

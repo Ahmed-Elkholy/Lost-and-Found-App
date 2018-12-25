@@ -1,51 +1,17 @@
-﻿@model IEnumerable<LostAndFound.Models.Reply>
+﻿﻿@model IEnumerable<LostAndFound.Models.Reply>
 
-@{
-    ViewBag.Title = "Index";
+@foreach (var Reply in Model)
+{
+    <div class="row">
+        <div class="col-md-2">
+            @Html.DisplayFor(model => Reply.User.FName) @Html.DisplayFor(model => Reply.User.LName)
+            <br />
+            @Html.DisplayFor(model => Reply.RDate)
+        </div>
+        <div class="col-md-10">
+            @Html.DisplayFor(model => Reply.Descr)
+        </div>
+    </div>
+    <br />
+    <br />
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descr)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Post.Descr)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Post.Descr)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RID })
-        </td>
-    </tr>
-}
-
-</table>
