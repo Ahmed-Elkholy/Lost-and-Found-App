@@ -69,23 +69,20 @@
 
 @Html.AntiForgeryToken()
 
-@using (Html.BeginForm("Search", "Home", FormMethod.Get))
-{
-
-    <div class="container">
+    @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+    {
+        <br />
+        <br />
         <div class="row">
             <div class="col-md-10">
-                <div class="input-group">
-                    <input name="query" type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Search</button>
-                    </span>
-                </div>
+                <input type = "text" class="form-control" placeholder="Search for...">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-outline-secondary btn-block" type="submit">Search</button>
             </div>
         </div>
-    </div>
-}
-<h2>Recent Posts</h2>
+    }
+        <h2>Recent Posts</h2>
 
 <table class="table" id="PostsTable">
     <tr>

@@ -34,7 +34,7 @@
             }
 
             <div>
-                <button type="button" id="reportBtn" class="btn btn-outline-danger" action="ReportPost">Report post</button>
+                <button type="button" class="btn btn-danger" id="reportBtn" action="ReportPost">Report post</button>
             </div>
         </div>
     </div>
@@ -53,15 +53,12 @@
     <div>
         <input type="hidden" id="pid" value=@Post.PID />
     </div>
-    <div class="col-md-8">
-        <label for="replyTextarea">Add comment</label>
-        <textarea class="form-control" id="replyText" name="replyText" placeholder="Write your answer here ..."></textarea>
-    </div>
-    <div class="col-md-2">
-        <input type="submit" id="replyBtn" value="Reply" class="btn btn-default" />
-    </div>
+    <label for="replyTextarea">Add reply</label>
 </div>
-
+<div class="row">
+    <textarea class="col-md-9" id="replyText" name="replyText" placeholder="Write your answer here ..."></textarea>
+    <input type="submit" id="replyBtn" value="Reply" class="btn btn-default col-md-offset-1 col-md-2" />
+</div>
 
 <script>
     $("#replyBtn").click(function (e) {
