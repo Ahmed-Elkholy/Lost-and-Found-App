@@ -10,7 +10,6 @@ using LostAndFound.Models;
 
 namespace LostAndFound.Controllers
 {
-
     public class ReportController : Controller
     {
         private LFModelEntities db = new LFModelEntities();

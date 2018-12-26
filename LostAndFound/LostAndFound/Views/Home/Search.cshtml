@@ -7,18 +7,14 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="input-group">
-                        <input type="text" class="form-control"name="query" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit">Search</button>
-                        </span>
-                    </div>
-                </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-10">
+                <input type="text" class="form-control" placeholder="Search for...">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-outline-secondary btn-block" type="submit">Search</button>
             </div>
         </div>
  }
