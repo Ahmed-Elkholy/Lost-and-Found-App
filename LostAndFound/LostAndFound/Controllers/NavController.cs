@@ -22,7 +22,15 @@ namespace LostAndFound.Controllers
             if (users.Count() > 0)
             {
                 var user = users.First();
-                return PartialView("~/Views/Shared/NavBarLoggedIn.cshtml", user);
+                if (user.Type == false)
+                {
+                    return PartialView("~/Views/Shared/NavBarLoggedIn.cshtml", user);
+                }
+                else
+                {
+                    return PartialView("~/Views/Shared/NavBarAdmin.cshtml", user);
+
+                }
             }
             else
             {

@@ -261,5 +261,13 @@ namespace LostAndFound.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult LogOut()
+        {
+            Session["id"] = null;
+            return RedirectToAction("Index","Home");
+        }
+
+
     }
 }
