@@ -59,19 +59,26 @@ namespace LostAndFound.Controllers
                 {
                     fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
 
-                    var uploadUrl = Server.MapPath("~/imgs/Post");
-                    filePath = Path.Combine(uploadUrl, fileName);
-                    while (System.IO.File.Exists(filePath))
+                    if (fileName != null)
                     {
-                        fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
+                        var uploadUrl = Server.MapPath("~/imgs/Post");
                         filePath = Path.Combine(uploadUrl, fileName);
-                        
+                        while (System.IO.File.Exists(filePath))
+                        {
+                            fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
+                            filePath = Path.Combine(uploadUrl, fileName);
+
+                        }
+                        Photo.SaveAs(filePath);
                     }
-                    Photo.SaveAs(filePath);
                 }
-                if (fileName !=null)
+                if (fileName != "")
                 {
                     filePath = "/imgs/Post/" + fileName;
+                }
+                else
+                {
+                    filePath = null;
                 }
                 Post NewPost = new Post
                 {

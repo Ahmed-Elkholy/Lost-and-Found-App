@@ -17,8 +17,8 @@ namespace LostAndFound.Controllers
         // GET: Statistics
         public ActionResult Index()
         {
-            var countMissing = db.Posts.Where(m => m.LF == true).Count();
-            var countFound = db.Posts.Where(m => m.LF == false).Count();
+            var countMissing = db.Posts.Where(m => m.Closed == false).Count();
+            var countFound = db.Posts.Where(m => m.Closed == true).Count();
             StatisticsModel s = new StatisticsModel
             {
                 CountMissing = countMissing,

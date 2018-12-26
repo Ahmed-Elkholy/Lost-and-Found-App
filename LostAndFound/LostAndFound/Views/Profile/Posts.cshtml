@@ -37,7 +37,6 @@
                 @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)
                 <a href="#" class="deletepost">grab kda</a>
                 <input type="hidden" class="pid" value=@item.PID />
-
                 @Html.ActionLink("Mark As Found", "Index", "Posts", new { id = item.PID }, new { @class = "deletepost" })
             </td>
         </tr>

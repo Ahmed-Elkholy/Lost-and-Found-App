@@ -4,14 +4,14 @@
     ViewBag.Title = "Index";
 }
 <table class="table">
+
     <tr>
-        <th>Number Of Missing Items</th>
-        <td>@Model.CountMissing</td>
-    </tr>
-    <tr>
-        <th>Number Of Found Items</th>
+        <th>Number of items back to owner</th>
         <td>@Model.CountFound</td>
     </tr>
-
+    <tr>
+        <th>Number of items still missing</th>
+        <td>@Model.CountMissing</td>
+    </tr>
 
 </table>
