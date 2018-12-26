@@ -17,6 +17,9 @@ namespace LostAndFound.Controllers
         // GET: UsersList
         public ActionResult Index()
         {
+            if (Session["id"] == null || (int)Session["type"] != 1)
+                return View("~/Views/Error404.cshtml");
+
             return View(db.Users.ToList());
         }
 

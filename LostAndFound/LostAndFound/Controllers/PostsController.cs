@@ -17,23 +17,12 @@ namespace LostAndFound.Controllers
         // GET: Posts
         public ActionResult Index(int id)
         {
-            var posts = db.Posts.Where(p => p.PID == id).Include(u => u.User);
-            return View(posts.ToList());
-        }
-
-        // GET: Posts/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (Session["id"] != null)
+            { 
+                var posts = db.Posts.Where(p => p.PID == id).Include(u => u.User);
+                return View(posts.ToList());
             }
-            Post post = db.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
+            return View("~/ Views / Error404.cshtml");
         }
 
         // GET: Posts/Create
@@ -53,11 +42,12 @@ namespace LostAndFound.Controllers
         }
 
         // POST: Posts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public ActionResult Create(PostViewModel post, HttpPostedFileBase Photo)
         {
+            if (Session["id"] == null)
+                return View("~/Views/Error404.cshtml");
+
             if (ModelState.IsValid)
             {
                 var filePath = "";
@@ -103,6 +93,9 @@ namespace LostAndFound.Controllers
         [HttpPost]
         public void AddReply(int pid, string replyText)
         {
+            if (Session["id"] == null)
+                return;
+
             Reply reply = new Reply
             {
                 PID = pid,
@@ -117,6 +110,9 @@ namespace LostAndFound.Controllers
         [HttpPost]
         public void AddReport(int pid)
         {
+            if (Session["id"] == null)
+                return;
+
             Report report = new Report
             {
                 PID = pid,
@@ -127,65 +123,6 @@ namespace LostAndFound.Controllers
                 db.Reports.Add(report);
                 db.SaveChanges();
             }
-        }
-
-        // GET: Posts/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.UID = new SelectList(db.Users, "ID", "FName", post.UID);
-            return View(post);
-        }
-
-        // POST: Posts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PID,UID,PDate,LF,Closed")] Post post)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.UID = new SelectList(db.Users, "ID", "FName", post.UID);
-            return View(post);
-        }
-
-        // GET: Posts/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
-        }
-
-        // POST: Posts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Post post = db.Posts.Find(id);
-            db.Posts.Remove(post);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

@@ -51,8 +51,7 @@ namespace LostAndFound.Controllers
                 return false;
             }
         }
-
-        // SRC: https://stackoverflow.com/questions/1365407/c-sharp-code-to-validate-email-address
+        
         static bool IsValidEmail(string email)
         {
             try
@@ -69,8 +68,7 @@ namespace LostAndFound.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            //var users = db.Users.ToList();
-            return View();// users);
+            return View();
         }
 
         // GET: Users/Register
@@ -99,6 +97,9 @@ namespace LostAndFound.Controllers
 
         public ActionResult UpdateUser([Bind(Exclude = "Photo")] User user, HttpPostedFileBase Photo)
         {
+            if (Session["id"] == null)
+                return View("~/Views/Error404.cshtml");
+
             if (ModelState.IsValid)
             {
                 var user_retrieved = db.Users.Where(u => u.Email == user.Email).First();
@@ -212,8 +213,6 @@ namespace LostAndFound.Controllers
         }
 
         // POST: Users/Login
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login([Bind(Include = "Email,Password")] User user)
@@ -227,6 +226,7 @@ namespace LostAndFound.Controllers
                 {
                     Session["id"] = user_retrieved.First().ID;
                     Session["email"] = user.Email;
+                    Session["type"] = user.Type;
                     return RedirectToAction("Index","Home");
                 }
                 else

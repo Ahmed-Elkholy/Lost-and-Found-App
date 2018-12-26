@@ -87,6 +87,7 @@
             type: "POST",
             success: function (data) {
                 alert("You reported the post and it is now under the admin's review\nThank you!!");
+                $("#reportBtn").prop("disabled", true);
             },
             error: function (reponse) {
                 alert("An error has occured :(\nPlease try again later!!");

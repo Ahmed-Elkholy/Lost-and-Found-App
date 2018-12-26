@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using LostAndFound.Models;
 
@@ -61,7 +58,6 @@ namespace LostAndFound.Controllers
             var posts = db.Posts.Where(m=>m.Descr.Contains(query));
             List<Post> dcf = posts.ToList();
             return View(dcf);
-
         }
 
 
