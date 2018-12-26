@@ -19,7 +19,8 @@
                 <li>@Html.ActionLink("Statistics", "Index", "Statistics")</li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>@Html.ActionLink(Model.FName, "Index", "Home")</li>
+                <li>@Html.ActionLink(Model.FName + " " + Model.LName, "Index", "Profile", new { id = Model.ID }, null)</li>
+                <li>@Html.ActionLink("Logout", "Logout", "Users", new { id = Model.ID }, null)</li>
             </ul>
 
         </div>

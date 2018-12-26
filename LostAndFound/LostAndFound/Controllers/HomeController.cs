@@ -16,7 +16,8 @@ namespace LostAndFound.Controllers
             var userid = Session["id"];
             if (userid != null)
             {
-                var posts = db.Posts.Take(50).Where(m => m.LF == true); ;
+                ViewBag.CategoryList = new SelectList(db.Categories, "CID", "CName");
+                var posts = db.Posts.Take(50).Where(m => m.Closed == false); 
                 List<Post> PostsList = posts.ToList();
                 return View(PostsList);
             }
@@ -53,11 +54,12 @@ namespace LostAndFound.Controllers
             return View();
         }
 
-        public ActionResult Search(string query)
+        public ActionResult Search(int CID,string query)
         {
-            var posts = db.Posts.Where(m=>m.Descr.Contains(query)).Where(m=>m.LF==true);
+            var posts = db.Posts.Where(m=>m.Descr.Contains(query)).Where(m=>m.Closed==false).Where(m=>m.CID==CID);
             List<Post> dcf = posts.ToList();
             ViewBag.ResultsNum = dcf.Count();
+            ViewBag.CategoryList = new SelectList(db.Categories, "CID", "CName");
             return View(dcf);
         }
 

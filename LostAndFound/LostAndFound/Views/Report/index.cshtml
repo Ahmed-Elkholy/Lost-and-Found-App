@@ -44,7 +44,6 @@
                 @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null) |
                 <a href="#" class="deletepost">Delete</a>
                 <input type="hidden" class="pid" value=@item.PID />
-                @Html.ActionLink("Delete", "Delete", "Report", new { id = item.PID }, null)
             </td>
         </tr>
     }

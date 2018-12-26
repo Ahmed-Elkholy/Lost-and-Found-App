@@ -75,54 +75,54 @@
         <br />
         <div class="row">
             <div class="col-md-10">
-                <input type = "text" class="form-control" name="query" placeholder="Search for...">
+                <input type="text" class="form-control" name="query" placeholder="Search for...">
             </div>
+            in
             <div class="col-md-2">
-                <button class="btn btn-outline-secondary btn-block" name="query" type="submit">Search</button>
+                @Html.DropDownList("CID", ViewBag.CategoryList as SelectList, new { @class = "form-control" })
+           </div>
+                <div class="col-md-2">
+                    <button class="btn btn-outline-secondary btn-block" name="query" type="submit">Search</button>
+                </div>
             </div>
-        </div>
-    }
-        <h2>Recent Posts</h2>
+            }
+            <h2>Recent Posts</h2>
 
-<table class="table" id="PostsTable">
-    <tr>
-        <th>
-            Post
-        </th>
-        <th>
-            Category
-        </th>
-        <th onclick="sortTable()">
-            Date
-        </th>
-        <th>
-            Lost/Found
-        </th>
-        <th></th>
-    </tr>
+            <table class="table" id="PostsTable">
+                <tr>
+                    <th>
+                        Post
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th onclick="sortTable()">
+                        Date
+                    </th>
+                    <th>
+                        Lost/Found
+                    </th>
+                    <th></th>
+                </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LF)
-            </td>
-            <td>
-                @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)
-
-            </td>
-        </tr>
-    }
-</table>
+                @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PDate)
+                </td>
+                <td>
+                    @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)
+                </td>
+            </tr>
+}
+            </table>
 
 
 
