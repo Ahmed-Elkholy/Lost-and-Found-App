@@ -20,6 +20,7 @@ namespace LostAndFound.Controllers
             if (Session["id"] != null)
             { 
                 var posts = db.Posts.Where(p => p.PID == id).Include(u => u.User);
+               
                 return View(posts.ToList());
             }
             return View("~/Views/Error404.cshtml");
@@ -47,13 +48,16 @@ namespace LostAndFound.Controllers
         {
             if (Session["id"] == null)
                 return View("~/Views/Error404.cshtml");
+           
+            var fileName = "";
 
+            var UID = (int)Session["id"];
             if (ModelState.IsValid)
             {
                 var filePath = "";
                 if (Photo != null)
                 {
-                    var fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
+                    fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
 
                     var uploadUrl = Server.MapPath("~/imgs/Post");
                     filePath = Path.Combine(uploadUrl, fileName);
@@ -61,17 +65,21 @@ namespace LostAndFound.Controllers
                     {
                         fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
                         filePath = Path.Combine(uploadUrl, fileName);
+                        
                     }
                     Photo.SaveAs(filePath);
                 }
-                
+                if (fileName !=null)
+                {
+                    filePath = "/imgs/Post/" + fileName;
+                }
                 Post NewPost = new Post
                 {
                     Descr = post.Descr,
                     PDate = DateTime.Now,
                     LF = post.LF,
-                    UID = 2,
-                    CID = 1,
+                    UID = UID,
+                    CID = post.CID,
                     Photo = filePath
                 };
                 db.Posts.Add(NewPost);
@@ -83,7 +91,7 @@ namespace LostAndFound.Controllers
                 {
                 }
                 //save photo here
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             ViewBag.CategoryList = new SelectList(db.Categories, "CID", "CName");

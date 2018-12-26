@@ -3,7 +3,7 @@
 @{
     var Post = Model.First();
     var photo = "/imgs/" + Post.Photo;
-    var userPhoto = "/imgs/" + Post.User.Photo;
+    var userPhoto =  Post.User.Photo;
 }
 
 <div class="container-fluid">
@@ -32,7 +32,7 @@
         <div class="col-md-6">
             @if (Html.DisplayFor(model => photo) != null)
             {
-                <img src="@photo" class="img-thumbnail" />
+                <img src="@Post.Photo" class="img-thumbnail" />
             }
 
             <div>

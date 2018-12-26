@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Net.Mail;
 using System.Web;
+using System.IO;
 
 namespace LostAndFound.Controllers
 {
@@ -154,15 +155,31 @@ namespace LostAndFound.Controllers
             if (ModelState.IsValid)
             {
                 var users_retrieved = db.Users.Where(u => u.Email == user.Email).ToList();
+                var filePath = "";
+                var fileName = "";
+                if (Photo != null)
+                {
+                    fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
+
+                    var uploadUrl = Server.MapPath("~/imgs/User");
+                    filePath = Path.Combine(uploadUrl, fileName);
+                    while (System.IO.File.Exists(filePath))
+                    {
+                        fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
+                        filePath = Path.Combine(uploadUrl, fileName);
+
+                    }
+                    Photo.SaveAs(filePath);
+                }
+                if (fileName != null)
+                {
+                    filePath = "/imgs/User/" + fileName;
+                }
                 if (users_retrieved.Count == 0)
                 {
-                    if (Photo != null)
-                    {
-                        byte[] buf = new byte[Photo.ContentLength];
-                        Photo.InputStream.Read(buf, 0, buf.Length);
-                    }
                     MD5 md5Hash = MD5.Create();
                     user.Password = GetMd5Hash(md5Hash, user.Password);
+                    user.Photo = filePath;
                     db.Users.Add(user);
                     db.SaveChanges();
                     return RedirectToAction("Index","Home");

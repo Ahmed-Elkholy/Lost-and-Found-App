@@ -395,6 +395,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="imgs\Post\" />
+    <Folder Include="imgs\User\" />
     <Folder Include="Views\Nav\" />
   </ItemGroup>
   <ItemGroup>
