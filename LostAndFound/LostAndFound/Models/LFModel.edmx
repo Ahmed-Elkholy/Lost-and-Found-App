@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LostAndFoundModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LostAndFoundModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CID" />
@@ -57,7 +57,9 @@
           <Property Name="Type" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Post_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Post" Type="Self.Post" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
@@ -69,7 +71,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Post_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Post" Type="Self.Post" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -81,7 +85,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Reply_Post">
-          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Reply" Type="Self.Reply" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Post">
@@ -89,23 +95,13 @@
             </Principal>
             <Dependent Role="Reply">
               <PropertyRef Name="PID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Reply_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Reply" Type="Self.Reply" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Reply">
-              <PropertyRef Name="UID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Report_Post">
-          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Report" Type="Self.Report" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Post">
@@ -113,18 +109,6 @@
             </Principal>
             <Dependent Role="Report">
               <PropertyRef Name="PID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Report_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Report" Type="Self.Report" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Report">
-              <PropertyRef Name="UID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -146,21 +130,12 @@
             <End Role="Post" EntitySet="Post" />
             <End Role="Reply" EntitySet="Reply" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reply_User" Association="Self.FK_Reply_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Reply" EntitySet="Reply" />
-          </AssociationSet>
           <AssociationSet Name="FK_Report_Post" Association="Self.FK_Report_Post">
             <End Role="Post" EntitySet="Post" />
             <End Role="Report" EntitySet="Report" />
           </AssociationSet>
-          <AssociationSet Name="FK_Report_User" Association="Self.FK_Report_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Report" EntitySet="Report" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LostAndFoundModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
