@@ -34,10 +34,9 @@
                 @Html.DisplayFor(modelItem => item.LF)
             </td>
             <td>
-                @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)
-                <a href="#" class="deletepost">grab kda</a>
+                @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)|
+                <a href="#" class="deletepost">Mark As Found</a>
                 <input type="hidden" class="pid" value=@item.PID />
-                @Html.ActionLink("Mark As Found", "Index", "Posts", new { id = item.PID }, new { @class = "deletepost" })
             </td>
         </tr>
     }
@@ -52,9 +51,10 @@
             var parent = $(this).parent();
             hidden = parent.children(".pid").first();
             var id = hidden.val();
+            parent = parent.parent();
             $.ajax({
                 url: "/Profile/MarkPost",
-                data: { pid: id },
+                data: { id: id },
                 cache: false,
                 type: "POST",
                 beforeSend: function () {
