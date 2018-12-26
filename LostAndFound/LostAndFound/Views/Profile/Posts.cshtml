@@ -31,9 +31,6 @@
                 @Html.DisplayFor(modelItem => item.PDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LF)
-            </td>
-            <td>
                 @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)|
                 <a href="#" class="deletepost">Mark As Found</a>
                 <input type="hidden" class="pid" value=@item.PID />
