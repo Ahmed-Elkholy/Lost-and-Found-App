@@ -2,9 +2,9 @@
 
 @foreach (var Reply in Model)
 {
-    <div class="row">
+    <div class="row well">
         <div class="col-md-2">
-            @Html.DisplayFor(model => Reply.User.FName) @Html.DisplayFor(model => Reply.User.LName)
+            <a href="@Url.Action("Index", "Profile", new { id = Reply.User.ID })">@Reply.User.FName @Reply.User.LName</a>
             <br />
             @Html.DisplayFor(model => Reply.RDate)
         </div>
@@ -12,6 +12,4 @@
             @Html.DisplayFor(model => Reply.Descr)
         </div>
     </div>
-    <br />
-    <br />
 }

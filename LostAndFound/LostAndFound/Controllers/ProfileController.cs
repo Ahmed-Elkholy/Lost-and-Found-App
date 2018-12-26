@@ -32,8 +32,8 @@ namespace LostAndFound.Controllers
 
             }
 
-            var users = db.Users.Where(m=>m.ID==id);
-            if (users.Count()>0)
+            var users = db.Users.Where(m => m.ID == id);
+            if (users.Count() > 0)
             {
                 return View(users.First());
             }

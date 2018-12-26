@@ -12,7 +12,9 @@
             <img class="img-rounded" width='50' height="50" src="@Html.DisplayFor(model => userPhoto)" />
         </div>
         <div class="col-md-10">
-            <label align="left">@Post.User.FName @Post.User.LName</label>
+                <label align="left">
+                    <a href="@Url.Action("Index", "Profile", new { id = Post.User.ID })">@Post.User.FName @Post.User.LName</a>
+                </label>
             <br />
             @Html.DisplayFor(model => Post.PDate)
         </div>
@@ -87,6 +89,7 @@
             type: "POST",
             success: function (data) {
                 alert("You reported the post and it is now under the admin's review\nThank you!!");
+                $("#reportBtn").prop("disabled", true);
             },
             error: function (reponse) {
                 alert("An error has occured :(\nPlease try again later!!");

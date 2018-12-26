@@ -18,7 +18,10 @@
             Lost/Found
         </th>
         <th>
-
+            Number of reports
+        </th>
+        <th>
+            Action
         </th>
     </tr>
 
@@ -26,19 +29,19 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Descr)
+                @item.Descr
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CategoryName)
+                @item.CategoryName
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PID)
+                @item.PID
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NumberOfReports)
+                @item.NumberOfReports
             </td>
             <td>
-                @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)|
+                @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null) |
                 @Html.ActionLink("Delete", "Delete", "Report", new { id = item.PID }, null)
             </td>
         </tr>

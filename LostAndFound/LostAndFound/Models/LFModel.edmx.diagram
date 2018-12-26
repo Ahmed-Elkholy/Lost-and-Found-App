@@ -4,8 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="10e3f7d590c647d99ccb492b7041bc7b" Name="Diagram1" ZoomLevel="58">
-        <EntityTypeShape EntityType="LostAndFoundModel.Category" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+      <Diagram DiagramId="10e3f7d590c647d99ccb492b7041bc7b" Name="Diagram1" ZoomLevel="76">
+        <EntityTypeShape EntityType="LostAndFoundModel.Category" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="LostAndFoundModel.Post" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="LostAndFoundModel.Reply" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="LostAndFoundModel.Report" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />

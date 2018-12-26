@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using LostAndFound.Models;
 
@@ -13,9 +10,13 @@ namespace LostAndFound.Controllers
     public class ReportController : Controller
     {
         private LFModelEntities db = new LFModelEntities();
+        
         // GET: Report
         public ActionResult Index()
         {
+            if (Session["id"] == null || (int)Session["type"] != 1)
+                return View("~/Views/Error404.cshtml");
+
             var reports = db.Reports.GroupBy(m=>m.PID).Select(g => new { pid = g.Key, count = g.Count() });
             List<ReportViewModel> ReportList = new List<ReportViewModel>();
             foreach(var report in reports)
@@ -28,8 +29,7 @@ namespace LostAndFound.Controllers
                     NumberOfReports = report.count,
                     Descr = post.Descr
                 };
-                ReportList.Add(rm);
-                
+                ReportList.Add(rm);   
             }
             return View(ReportList);
         }
@@ -41,8 +41,11 @@ namespace LostAndFound.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Report report = db.Reports.Find(id);
-            db.Reports.Remove(report);
+            var report = db.Reports.Where(x => x.PID == id);
+            foreach(var r in report)
+            {
+                db.Reports.Remove(r);
+            }
             db.SaveChanges();
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
