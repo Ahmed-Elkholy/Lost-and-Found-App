@@ -1,10 +1,15 @@
 ﻿@model LostAndFound.Models.User
 
+@{ 
+    var id = (int)Session["id"];
+}
 
-<h2>@Model.FName 's Profile</h2>
+<h2>@Model.FName's Profile</h2>
 
-@Html.ActionLink("Edit Information", "EditProfile", "Users", new { id = Model.ID }, null)
-
+@if (Model.ID == id)
+{ 
+    @Html.ActionLink("Edit Information", "EditProfile", "Users", new { id = Model.ID }, null)
+}
 
 <table class="table">
     <tr>
@@ -26,7 +31,7 @@
 
 </table>
 
-<h2>@Model.FName 's Posts</h2>
+<h2>@Model.FName's Posts</h2>
 
 
 @{

@@ -1,5 +1,8 @@
 ﻿﻿@model IEnumerable<LostAndFound.Models.Post>
 
+@{ 
+    var id = (int)Session["id"];
+}
 
 <table class="table" id="PostsTable">
     <tr>
@@ -31,10 +34,16 @@
                 @Html.DisplayFor(modelItem => item.PDate)
             </td>
             <td>
-                @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)|
-                <a href="#" class="deletepost">Mark As Found</a>
-                <input type="hidden" class="pid" value=@item.PID />
+                @Html.DisplayFor(modelItem => item.LF)
             </td>
+            @if (Model.First().User.ID == id)
+            { 
+                <td>
+                    @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)|
+                    <a href="#" class="deletepost">Mark As Found</a>
+                    <input type="hidden" class="pid" value=@item.PID />
+                </td>
+            }
         </tr>
     }
 </table>
