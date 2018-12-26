@@ -22,7 +22,7 @@ namespace LostAndFound.Controllers
                 var posts = db.Posts.Where(p => p.PID == id).Include(u => u.User);
                 return View(posts.ToList());
             }
-            return View("~/ Views / Error404.cshtml");
+            return View("~/Views/Error404.cshtml");
         }
 
         // GET: Posts/Create
