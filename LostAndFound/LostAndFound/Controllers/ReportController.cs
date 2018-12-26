@@ -14,7 +14,7 @@ namespace LostAndFound.Controllers
         // GET: Report
         public ActionResult Index()
         {
-            if (Session["id"] == null || (int)Session["type"] != 1)
+            if (Session["id"] == null || (bool)Session["type"] != true)
                 return View("~/Views/Error404.cshtml");
 
             var reports = db.Reports.GroupBy(m=>m.PID).Select(g => new { pid = g.Key, count = g.Count() });
