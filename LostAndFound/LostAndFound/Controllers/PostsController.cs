@@ -51,17 +51,21 @@ namespace LostAndFound.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                var fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
-
-                var uploadUrl = Server.MapPath("~/Images/Post");
-                var filePath = Path.Combine(uploadUrl, fileName);
-                while(System.IO.File.Exists(filePath))
+                var filePath = "";
+                if (Photo != null)
                 {
-                    fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
+                    var fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
+
+                    var uploadUrl = Server.MapPath("~/imgs/Post");
                     filePath = Path.Combine(uploadUrl, fileName);
+                    while (System.IO.File.Exists(filePath))
+                    {
+                        fileName = Guid.NewGuid().ToString() + System.IO.Path.GetExtension(Photo.FileName);
+                        filePath = Path.Combine(uploadUrl, fileName);
+                    }
+                    Photo.SaveAs(filePath);
                 }
-                Photo.SaveAs(filePath);
+                
                 Post NewPost = new Post
                 {
                     Descr = post.Descr,
@@ -83,8 +87,8 @@ namespace LostAndFound.Controllers
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.UID = new SelectList(db.Users, "ID", "FName", post.UID);
-            return View(post);
+            ViewBag.CategoryList = new SelectList(db.Categories, "CID", "CName");
+            return View();
         }
 
         [HttpPost]

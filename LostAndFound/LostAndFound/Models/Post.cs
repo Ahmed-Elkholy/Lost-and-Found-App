@@ -11,7 +11,9 @@ namespace LostAndFound.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Post
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,12 +26,15 @@ namespace LostAndFound.Models
         public int PID { get; set; }
         public int UID { get; set; }
         public System.DateTime PDate { get; set; }
+        [Required]
         public bool LF { get; set; }
         public bool Closed { get; set; }
+        [Required(ErrorMessage ="You must write a description")]
+        [MaxLength(10000, ErrorMessage = "You exceeded 10000 characters"), MinLength(5, ErrorMessage = "Please provide a longer descripton")]
         public string Descr { get; set; }
         public int CID { get; set; }
         public string Photo { get; set; }
-    
+        [Required(ErrorMessage = "You must choose a category")]
         public virtual Category Category { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
