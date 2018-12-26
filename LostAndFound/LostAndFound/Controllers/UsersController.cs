@@ -81,6 +81,7 @@ namespace LostAndFound.Controllers
         // GET: Users/EditProfile
         public ActionResult EditProfile(int id)
         {
+            var x = (int)Session["id"];
             if (Session["id"] == null || id != (int)Session["id"])
                 return View("~/Views/Error404.cshtml");
 
