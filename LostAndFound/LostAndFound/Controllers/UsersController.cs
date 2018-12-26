@@ -243,7 +243,7 @@ namespace LostAndFound.Controllers
                 {
                     Session["id"] = user_retrieved.First().ID;
                     Session["email"] = user.Email;
-                    Session["type"] = user.Type;
+                    Session["type"] = user_retrieved.First().Type;
                     return RedirectToAction("Index","Home");
                 }
                 else
