@@ -39,8 +39,17 @@ namespace LostAndFound.Controllers
         // GET: Posts/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryList = new SelectList(db.Categories, "CID", "CName");
-            return View();
+            var userid = Session["id"];
+            if (userid != null)
+            {
+                ViewBag.CategoryList = new SelectList(db.Categories, "CID", "CName");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index","Home");
+
+            }
         }
 
         // POST: Posts/Create

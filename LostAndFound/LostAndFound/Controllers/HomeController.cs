@@ -13,18 +13,22 @@ namespace LostAndFound.Controllers
     public class HomeController : Controller
     {
         private LFModelEntities db = new LFModelEntities();
-        /*
+        
         public ActionResult Index()
         {
-            var posts = db.Posts;
-            List<Post> dcf = posts.ToList();
-            //Post p = new Post();
-            //p.Descr = "dfdf";
-            //dcf.Add(p);
-
-            return View(dcf);
-        }*/
-
+            var userid = Session["id"];
+            if (userid != null)
+            {
+                var posts = db.Posts.Take(50);
+                List<Post> PostsList = posts.ToList();
+                return View(PostsList);
+            }
+            else
+            {
+                return View("Welcome");
+            }
+        }
+        /*
         public ActionResult Index(string sortOrder)
         {
             var posts = from s in db.Posts
@@ -37,7 +41,7 @@ namespace LostAndFound.Controllers
             List<Post> dcf = posts.ToList();
 
             return View(dcf);
-        }
+        }*/
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

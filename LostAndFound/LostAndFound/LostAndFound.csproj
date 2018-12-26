@@ -393,6 +393,7 @@
     <Content Include="Views\Users\ResetToken.cshtml" />
     <Content Include="Views\Users\EditProfile.cshtml" />
     <Content Include="Views\Error404.cshtml" />
+    <Content Include="Views\Home\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

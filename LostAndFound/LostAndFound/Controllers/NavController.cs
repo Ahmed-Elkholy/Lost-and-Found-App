@@ -18,7 +18,11 @@ namespace LostAndFound.Controllers
         public ActionResult Index()
         {
             //TO DO Get from session
-            var id = 2;
+            if (Session["id"] == null)
+            {
+                return PartialView("~/Views/Shared/NavBarNotLogged.cshtml");
+            }
+            var id = (int)Session["id"];
             var users = db.Users.Where(m=>m.ID==id);
             if (users.Count() > 0)
             {

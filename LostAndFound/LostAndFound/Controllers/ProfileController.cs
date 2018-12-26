@@ -17,11 +17,19 @@ namespace LostAndFound.Controllers
 
         public ActionResult Index(int id)
         {
-            id = 2;
             if (id == 0)
             {
-                
                 //take session id or return failed
+                var userid = Session["id"];
+                if (userid == null || (int)userid != 0)
+                {
+                    return View("Error");
+                }
+                else
+                {
+                    id = (int)userid;
+                }
+
             }
 
             var users = db.Users.Where(m=>m.ID==id);
@@ -29,7 +37,7 @@ namespace LostAndFound.Controllers
             {
                 return View(users.First());
             }
-            return View(users.ToList());
+            return View("Error");
         }
     }
 }

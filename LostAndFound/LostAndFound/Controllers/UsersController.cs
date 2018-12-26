@@ -164,7 +164,7 @@ namespace LostAndFound.Controllers
                     user.Password = GetMd5Hash(md5Hash, user.Password);
                     db.Users.Add(user);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Home");
                 }
             }
             return View(user);
@@ -227,7 +227,7 @@ namespace LostAndFound.Controllers
                 {
                     Session["id"] = user_retrieved.First().ID;
                     Session["email"] = user.Email;
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Home");
                 }
                 else
                     return RedirectToAction("Failed");
