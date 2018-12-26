@@ -69,43 +69,45 @@
 
 @Html.AntiForgeryToken()
 
+<div class="row">
     @using (Html.BeginForm("Search", "Home", FormMethod.Get))
     {
         <br />
         <br />
-        <div class="row">
-            <div class="col-md-6">
-                <input type="text" class="form-control" name="query" placeholder="Search for...">
-            </div>
-            <p>in</p>
-            <div class="col-md-2">
-                @Html.DropDownList("CID", ViewBag.CategoryList as SelectList, new { @class = "form-control" })
-           </div>
-                <div class="col-md-2">
-                    <button class="btn btn-outline-secondary btn-block" name="query" type="submit">Search</button>
-                </div>
-            </div>
-            }
-            <h2>Recent Posts</h2>
 
-            <table class="table" id="PostsTable">
-                <tr>
-                    <th>
-                        Post
-                    </th>
-                    <th>
-                        Category
-                    </th>
-                    <th onclick="sortTable()">
-                        Date
-                    </th>
-                    <th>
-                        Lost/Found
-                    </th>
-                    <th></th>
-                </tr>
+        <div class="col-md-5">
+            <input type="text" class="form-control col-md-5" name="query" placeholder="Search for...">
+        </div>
+        <div class="col-md-2">
+            @Html.DropDownList("CID", ViewBag.CategoryList as SelectList, new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-block col-md-2" name="query" type="submit">Search</button>
+        </div>
 
-                @foreach (var item in Model)
+    }
+</div>
+            
+<h2>Recent Posts</h2>
+
+    <table class="table" id="PostsTable">
+        <tr>
+            <th>
+                Post
+            </th>
+            <th>
+                Category
+            </th>
+            <th onclick="sortTable()">
+                Date
+            </th>
+            <th>
+                Lost/Found
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -121,9 +123,5 @@
                     @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)
                 </td>
             </tr>
-}
-            </table>
-
-
-
-
+        }
+</table>
