@@ -19,7 +19,7 @@ namespace LostAndFound.Controllers
             var userid = Session["id"];
             if (userid != null)
             {
-                var posts = db.Posts.Take(50);
+                var posts = db.Posts.Take(50).Where(m => m.LF == true); ;
                 List<Post> PostsList = posts.ToList();
                 return View(PostsList);
             }
@@ -58,8 +58,9 @@ namespace LostAndFound.Controllers
 
         public ActionResult Search(string query)
         {
-            var posts = db.Posts.Where(m=>m.Descr.Contains(query));
+            var posts = db.Posts.Where(m=>m.Descr.Contains(query)).Where(m=>m.LF==true);
             List<Post> dcf = posts.ToList();
+            ViewBag.ResultsNum = dcf.Count();
             return View(dcf);
 
         }

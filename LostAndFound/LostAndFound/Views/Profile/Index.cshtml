@@ -25,7 +25,12 @@
 
 </table>
 
+<h2>@Model.FName 's Posts</h2>
 
+
+@{
+    Html.RenderAction("getPosts", "Profile", new { id = Model.ID });
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

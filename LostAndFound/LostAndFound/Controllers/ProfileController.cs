@@ -39,5 +39,19 @@ namespace LostAndFound.Controllers
             }
             return View("Error");
         }
+        public ActionResult getPosts(int id)
+        {
+            var posts = db.Posts.Where(m => m.User.ID == id);
+            return PartialView("Posts",posts.ToList());
+        }
+
+        public void MarkPost(int id)
+        {
+            var post = db.Posts.Where(m => m.PID == id).First();
+            post.LF = false;
+            db.Posts.Add(post);         
+            db.SaveChanges();
+
+        }
     }
 }

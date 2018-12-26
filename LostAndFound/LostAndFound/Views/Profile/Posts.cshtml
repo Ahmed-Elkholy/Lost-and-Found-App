@@ -1,0 +1,76 @@
+﻿﻿@model IEnumerable<LostAndFound.Models.Post>
+
+
+<table class="table" id="PostsTable">
+    <tr>
+        <th>
+            Post
+        </th>
+        <th>
+            Category
+        </th>
+        <th onclick="sortTable()">
+            Date
+        </th>
+        <th>
+            Lost/Found
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LF)
+            </td>
+            <td>
+                @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)
+                <a href="#" class="deletepost">grab kda</a>
+                <input type="hidden" class="pid" value=@item.PID />
+
+                @Html.ActionLink("Mark As Found", "Index", "Posts", new { id = item.PID }, new { @class = "deletepost" })
+            </td>
+        </tr>
+    }
+</table>
+
+
+<script>
+    $(document).ready(function () {
+
+        $(".deletepost").click(function (e) {
+            e.preventDefault();
+            var parent = $(this).parent();
+            hidden = parent.children(".pid").first();
+            var id = hidden.val();
+            $.ajax({
+                url: "/Profile/MarkPost",
+                data: { pid: id },
+                cache: false,
+                type: "POST",
+                beforeSend: function () {
+                    parent.animate({ 'backgroundColor': '#fb6c6c' }, 300);
+                },
+                success: function () {
+                    parent.slideUp(300, function () {
+                        parent.remove();
+                    });
+                }
+   
+                });
+            });
+       
+    });
+
+
+</script>

@@ -4,62 +4,125 @@
 }
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-        <br />
-        <br />
-        <div class="row">
-            <div class="col-md-10">
-                <input type="text" class="form-control" placeholder="Search for...">
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-outline-secondary btn-block" type="submit">Search</button>
-            </div>
-        </div>
- }
-    <h2>2 Results</h2>
+<style>
+    th {
+        cursor: pointer;
+    }
+</style>
 
-    <table class="table">
-        <tr>
-            <th>
-                Post
-            </th>
-            <th>
-                Category
-            </th>
-            <th>
-                Date
-            </th>
-            <th>
-                Lost/Found
-            </th>
-            <th></th>
-        </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.CName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LF)
-                </td>
-                <td>
-                    @Html.ActionLink("View", "View", new { id = item.PID })
-
-                </td>
-            </tr>
+<script>
+    direction = false;
+    function sortTable() {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("PostsTable");
+        switching = true;
+        // Set the sorting direction to ascending:
+        direction = !direction;
+        /* Make a loop that will continue until
+        no switching has been done: */
+        while (switching) {
+            // Start by saying: no switching is done:
+            switching = false;
+            rows = table.rows;
+            /* Loop through all table rows (except the
+            first, which contains table headers): */
+            for (i = 1; i < (rows.length - 1); i++) {
+                // Start by saying there should be no switching:
+                shouldSwitch = false;
+                /* Get the two elements you want to compare,
+                one from current row and one from the next: */
+                x = rows[i].getElementsByTagName("td")[2]; //third index
+                y = rows[i + 1].getElementsByTagName("td")[2];
+                /* Check if the two rows should switch place,
+                based on the direction, asc or desc: */
+                d1 = new Date(x.innerHTML);
+                d2 = new Date(y.innerHTML);
+                //asending logic
+                if (direction == 0) {
+                    if (d1 > d2) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (direction == 1) {
+                    if (d1 < d2) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                /* If a switch has been marked, make the switch
+                and mark that a switch has been done: */
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                // Each time a switch is done, increase this count by 1:
+                switchcount++;
+            }
         }
+    }
 
-    </table>
+</script>
+
+
+@Html.AntiForgeryToken()
+
+@using (Html.BeginForm("Search", "Home", FormMethod.Get))
+{
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-10">
+            <input type="text" class="form-control" name="query" placeholder="Search for...">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-outline-secondary btn-block"  type="submit">Search</button>
+        </div>
+    </div>
+}
+<h2>@ViewBag.ResultsNum Results</h2>
+
+<table class="table" id="PostsTable">
+    <tr>
+        <th>
+            Post
+        </th>
+        <th>
+            Category
+        </th>
+        <th onclick="sortTable()">
+            Date
+        </th>
+        <th>
+            Lost/Found
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LF)
+            </td>
+            <td>
+                @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)
+
+            </td>
+        </tr>
+    }
+</table>
 
 
 
