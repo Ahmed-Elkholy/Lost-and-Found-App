@@ -132,18 +132,18 @@ namespace LostAndFound.Controllers
 
         // POST: Users/ResetToken
         [HttpPost]
-        public ActionResult ResetToken(int token, string password)
+        public ActionResult ResetToken(RegisterModel user)
         {
             MD5 md5Hash = MD5.Create();
-            string hashed = GetMd5Hash(md5Hash, password);
+            string hashed = GetMd5Hash(md5Hash, user.Password);
             var email = Session["email"];
-            if (Session["token"].Equals(token) && password.Length >= 8 && password.Length <= 40)
+            if (Session["token"].Equals(user.Token) && user.Password.Length >= 8 && user.Password.Length <= 40)
             {
                 var entry = db.Users.Where(u => u.Email == email.ToString()).ToList().First();
                 entry.Password = hashed;
                 db.SaveChanges();
             }
-            return View();
+            return RedirectToAction("Index","Home");
         }
 
 

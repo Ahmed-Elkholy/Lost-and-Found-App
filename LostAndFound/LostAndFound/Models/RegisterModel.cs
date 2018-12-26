@@ -44,6 +44,8 @@
         [MaxLength(40, ErrorMessage = "Password must be at most 40 characters long"), MinLength(8, ErrorMessage = "Password must be least 8 characters long")]
         public string CPassword { get; set; }
         public bool Type { get; set; }
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Numbers Only")]
+        public int Token { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Posts { get; set; }

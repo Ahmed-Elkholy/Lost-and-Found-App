@@ -107,20 +107,23 @@
 
                 @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.CName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PDate)
-                </td>
-                <td>
-                    @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.CName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LF)
+                    </td>
+                    <td>
+                        @Html.ActionLink("View", "Index", "Posts", new { id = item.PID }, null)
+                    </td>
+                </tr>
 }
             </table>
 
