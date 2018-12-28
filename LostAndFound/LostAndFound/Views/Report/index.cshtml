@@ -35,7 +35,7 @@
                 @item.CategoryName
             </td>
             <td>
-                @item.PID
+                @Html.DisplayFor(modelItem => item.LF)
             </td>
             <td>
                 @item.NumberOfReports
@@ -66,11 +66,12 @@
                 cache: false,
                 type: "POST",
                 beforeSend: function () {
-                    parent.animate({ 'backgroundColor': '#fb6c6c' }, 300);
+                    //parent.animate({ 'backgroundColor': '#fb6c6c' }, 300);
                 },
                 success: function () {
-                    parent.slideUp(300, function () {
+                    parent.slideUp(100, function () {
                         parent.remove();
+                        location.reload(true);
                     });
                 }
 

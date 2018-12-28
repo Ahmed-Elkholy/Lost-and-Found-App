@@ -35,12 +35,9 @@ namespace LostAndFound.Controllers
         }
 
         // GET: Reports/Delete/5
-        public ActionResult Delete(int? id)
+        public void Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+      
             var report = db.Reports.Where(x => x.PID == id);
             foreach(var r in report)
             {
@@ -50,11 +47,8 @@ namespace LostAndFound.Controllers
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
-            if (report == null || post == null)
-            {
-                return HttpNotFound();
-            }
-            return View("Index",report);
+
+            return;
         }
 
         

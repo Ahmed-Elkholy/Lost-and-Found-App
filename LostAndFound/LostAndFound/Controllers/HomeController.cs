@@ -26,20 +26,7 @@ namespace LostAndFound.Controllers
                 return View("Welcome");
             }
         }
-        /*
-        public ActionResult Index(string sortOrder)
-        {
-            var posts = from s in db.Posts
-                           select s;
-            
-            if (sortOrder !=null && sortOrder.Equals("Date"))
-            {
-                posts = posts.OrderByDescending(s => s.PDate);
-            }
-            List<Post> dcf = posts.ToList();
 
-            return View(dcf);
-        }*/
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -54,15 +41,20 @@ namespace LostAndFound.Controllers
             return View();
         }
 
-        public ActionResult Search(int CID,string query)
+        public ActionResult Search(int CID, string query)
         {
+            if (query == "")
+            {
+                List<Post> po = new List<Post>();
+                ViewBag.ResultsNum = 0;
+                ViewBag.CategoryList = new SelectList(db.Categories, "CID", "CName");
+                return View(po);
+            }
             var posts = db.Posts.Where(m=>m.Descr.Contains(query)).Where(m=>m.Closed==false).Where(m=>m.CID==CID);
             List<Post> dcf = posts.ToList();
             ViewBag.ResultsNum = dcf.Count();
             ViewBag.CategoryList = new SelectList(db.Categories, "CID", "CName");
             return View(dcf);
         }
-
-
     }
 }

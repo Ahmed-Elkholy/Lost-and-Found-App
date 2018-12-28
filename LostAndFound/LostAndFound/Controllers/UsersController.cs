@@ -15,7 +15,6 @@ namespace LostAndFound.Controllers
     {
         private LFModelEntities db = new LFModelEntities();
 
-        // SRC: https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.md5?redirectedfrom=MSDN&view=netframework-4.7.2
         static string GetMd5Hash(MD5 md5Hash, string input)
         {
             // Convert the input string to a byte array and compute the hash.
@@ -119,7 +118,7 @@ namespace LostAndFound.Controllers
                 user_retrieved.Mobile = user.Mobile;
                 user_retrieved.Photo = user.Photo;
                 db.SaveChanges();
-                return RedirectToAction("Index");   
+                return RedirectToAction("Index","Home");   
             }
             return View(user);
         }
@@ -148,8 +147,6 @@ namespace LostAndFound.Controllers
 
 
         // POST: Users/Register
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public ActionResult Register([Bind(Exclude = "Photo")] User user, HttpPostedFileBase Photo)
         {
@@ -268,7 +265,5 @@ namespace LostAndFound.Controllers
             Session["id"] = null;
             return RedirectToAction("Index","Home");
         }
-
-
     }
 }
